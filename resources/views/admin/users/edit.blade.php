@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.admin.app')
 
 @section('title', 'Edit User')
 
@@ -13,7 +13,7 @@
     <form action="{{route('admin.users.update', $user)}}" method="POST" class="general-ajax-submit">
         @csrf
         @method('PUT')
-        <div class="card card-info card-outline">
+        <div class="card">
             <div class="card-header">
                 <h5 class="m-0">Basic Info</h5>
             </div>
@@ -28,16 +28,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>First Name</label>
-                            <input name="first_name" type="text" class="form-control" placeholder="First Name..." value="{{$user->first_name}}">
-                            <span data-input="first_name" class="input-error"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input name="last_name" type="text" class="form-control" placeholder="Last Name..." value="{{$user->last_name}}">
-                            <span data-input="last_name" class="input-error"></span>
+                            <label>Name</label>
+                            <input name="name" type="text" class="form-control" placeholder="Name..." value="{{$user->name}}">
+                            <span data-input="name" class="input-error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -49,17 +42,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" name="phone_number" class="form-control" placeholder="Phone Number..." value="{{$user->phone_number}}">
-                            <span data-input="phone_number" class="input-error"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>User Role</label>
-                            <select class="form-control" name="role">
-                                @foreach (\App\Models\User::ROLES as $role => $name)
-                                    <option value="{{$role}}" @selected($user->role==$role)>{{$name}}</option>
+                            <label>User Roles</label>
+                            <select class="form-control select2" name="roles[]" multiple>
+                                @foreach (\App\Models\Role::all() as $role)
+                                    <option value="{{$role->id}}" @selected($user->roles->contains('id', $role->id))>{{readable($role->name)}}</option>
                                 @endforeach
                             </select>
                             <span data-input="role" class="input-error"></span>

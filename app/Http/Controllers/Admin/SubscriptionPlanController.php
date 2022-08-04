@@ -42,7 +42,6 @@ class SubscriptionPlanController extends Controller
             $stripePlan = $this->stripeService->createPlan($data['title'], $data['price'], $data['interval'], 1, $data['trial']);
             $data['stripe_id'] = $stripePlan['id'];
             $subscriptionPlan = SubscriptionPlan::create($data);
-            $subscriptionPlan->features()->attach($data['features']??[]);
         } catch (\Throwable $th) {
             if (isset($subscriptionPlan)) {
                 $subscriptionPlan->delete();
@@ -51,41 +50,25 @@ class SubscriptionPlanController extends Controller
             throw $th;
         }
 
-        return $this->jsonSuccess([
+        return $this->jsonSuccess('Subscription plan created successfully', [
             'redirect' => route('admin.subscription-plans.index')
-        ], 'Subscription plan created successfully');
+        ]);
     }
 
-    /**
-     * @param SubscriptionPlan $subscriptionPlan
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|mixed
-     */
     public function edit(SubscriptionPlan $subscriptionPlan)
     {
         return view('admin.subscription-plans.edit', compact('subscriptionPlan'));
     }
 
-    /**
-     * @param SubscriptionPlanRequest $request
-     * @param SubscriptionPlan $subscriptionPlan
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function update(SubscriptionPlanRequest $request, SubscriptionPlan $subscriptionPlan)
     {
         $data = $request->validated();
         $stripePlan = $this->stripeService->updatePlan($subscriptionPlan->stripe_id, $data['title'], $data['trial']);
         $subscriptionPlan->update($data);
-        $subscriptionPlan->features()->sync($data['features']??[]);
 
-        return $this->jsonSuccess([
-            'redirect' => route('admin.subscription-plans.index')
-        ], 'Subscription plan updated successfully.');
+        return $this->jsonSuccess('Subscription plan updated successfully.');
     }
 
-    /**
-     * @param SubscriptionPlan $subscriptionPlan
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function destroy(SubscriptionPlan $subscriptionPlan)
     {
         if ($subscriptionPlan->stripe_id) {

@@ -3,45 +3,31 @@
         <div class="header__body">
             <a href="{{route('index')}}" class="header__logo logo">
                 <img src="{{asset('img/logo.svg')}}" alt="LOGO">
-                <!-- <bold>TRADING REPS</bold> -->
             </a>
             <nav class="header__menu menu">
                 <ul class="menu__list">
                     <li>
-                        <a href="#">
-                            Features
+                        <a href="{{route('plans')}}">
+                            Pricing
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('about-us')}}">
                             About Us
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('how-it-works')}}">
                             How It Works
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('faq')}}">
                             FAQ
                         </a>
                     </li>
-                    @auth
                     <li>
-                        <a href="#">
-                            Subscriptions
-                        </a>
-                    </li>
-                    @else
-                    <li>
-                        <a href="{{route('register')}}">
-                            Sign Up
-                        </a>
-                    </li>
-                    @endauth
-                    <li>
-                        <a href="#">
+                        <a href="{{route('feedbacks.index')}}">
                             Contact Us
                         </a>
                     </li>
@@ -49,7 +35,7 @@
             </nav>
             <div class="buttons-group">
                 @auth
-                    <a href="#" class="btn btn-sm btn-white">
+                    <a href="{{route('profile.index')}}" class="btn btn-sm btn-white">
                         Account
                     </a>
                     <form action="{{route('logout')}}" method="post" id="logout-form">

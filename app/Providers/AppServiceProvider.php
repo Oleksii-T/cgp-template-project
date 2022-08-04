@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,17 @@ class AppServiceProvider extends ServiceProvider
                 auth()->user()
             );
         });
+
+        config(['services.google.client_id'=> Setting::get('google_client_id')]);
+        config(['services.google.client_secret'=> Setting::get('google_client_secret')]);
+        config(['services.google.redirect'=> Setting::get('google_redirect')]);
+
+        config(['services.twitter.client_id'=> Setting::get('twitter_client_id')]);
+        config(['services.twitter.client_secret'=> Setting::get('twitter_client_secret')]);
+        config(['services.twitter.redirect'=> Setting::get('twitter_redirect')]);
+
+        config(['services.facebook.client_id'=> Setting::get('facebook_client_id')]);
+        config(['services.facebook.client_secret'=> Setting::get('facebook_client_secret')]);
+        config(['services.facebook.redirect'=> Setting::get('facebook_redirect')]);
     }
 }

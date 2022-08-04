@@ -34,17 +34,14 @@ if (!function_exists('userAvatar')) {
 }
 
 // transform snake\kebab\camel case to user friendly string
-if (!function_exists('readableCase')) {
-    function readableCase(string $s, $upperCaseEach=false) {
-        if (strpos('-', $s) !== false) {
-            // kebab case
-            $s = str_replace('-', $s);
-        } else if (strpos('_', $s) !== false) {
-            // snake case
-            $s = str_replace('_', $s);
+if (!function_exists('readable')) {
+    function readable(string $s, $upperCaseEach=false) {
+        if (str_contains($s, '-')) {
+            $s = str_replace('-', ' ', $s);// kebab case
+        } else if (str_contains($s, '_')) {
+            $s = str_replace('_', ' ', $s);// snake case
         } else {
-            // camel case
-            $s = strtolower(preg_replace('/(?<!^)[A-Z]/', ' $0', $s));
+            $s = strtolower(preg_replace('/(?<!^)[A-Z]/', ' $0', $s));// camel case
         }
 
         return $upperCaseEach ? ucwords($s) : ucfirst($s);

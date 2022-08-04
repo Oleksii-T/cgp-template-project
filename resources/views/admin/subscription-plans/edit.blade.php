@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.admin.app')
 
 @section('title', 'Edit Plan')
 
@@ -53,17 +53,6 @@
                             <label>Description</label>
                             <textarea name="description" type="text" class="form-control">{{$subscriptionPlan->description}}</textarea>
                             <span data-input="description" class="input-error"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Features</label>
-                            <select class="form-control select2" name="features[]" multiple>
-                                @foreach (\App\Models\SubscriptionFeature::all() as $f)
-                                    <option value="{{$f->id}}" @selected($subscriptionPlan->features->pluck('id')->contains($f->id))>{{$f->text}}</option>
-                                @endforeach
-                            </select>
-                            <span data-input="role" class="input-error"></span>
                         </div>
                     </div>
                 </div>

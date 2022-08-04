@@ -21,7 +21,8 @@ Route::middleware('is-admin')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 
-    Route::resource('settings', SettingController::class)->only('index');
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
 
     Route::resource('users', UserController::class);
 

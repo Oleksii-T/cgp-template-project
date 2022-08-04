@@ -17,13 +17,13 @@
                             <h4 class="footer__menu-title">Product</h4>
                             <ul class="footer__menu-list">
                                 <li>
-                                    <a href="#">How it works</a>
+                                    <a href="{{route('how-it-works')}}">How it works</a>
                                 </li>
                                 <li>
-                                    <a href="#">Pricing</a>
+                                    <a href="{{route('plans')}}">Pricing</a>
                                 </li>
                                 <li>
-                                    <a href="#">FAQ</a>
+                                    <a href="{{route('faq')}}">FAQ</a>
                                 </li>
                             </ul>
                         </div>
@@ -31,13 +31,7 @@
                             <h4 class="footer__menu-title">Company</h4>
                             <ul class="footer__menu-list">
                                 <li>
-                                    <a href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="#">Join</a>
+                                    <a href="{{route('about-us')}}">About Us</a>
                                 </li>
                             </ul>
                         </div>
@@ -56,23 +50,8 @@
                 <p class="footer__bottom-privaci">© 2021 Company Ltd. All rights reserved.</p>
                 <div class="footer__bottom-right">
                     <div class="footer__bottom-links">
-                        <a href="#">Terms</a>
-                        <a href="#">Privacy</a>
-                        <a href="#">Refunds</a>
-                    </div>
-                    <div class="footer__bottom-social">
-                        @if (\App\Models\Setting::get('twitter'))
-                            <a href="{{\App\Models\Setting::get('twitter')}}" target="_blank"><img src="{{asset('assets/website/img/social-1.svg')}}" alt=""></a>
-                        @endif
-                        @if (\App\Models\Setting::get('facebook'))
-                            <a href="{{\App\Models\Setting::get('facebook')}}" target="_blank"><img src="{{asset('assets/website/img/social-2.svg')}}" alt=""></a>
-                        @endif
-                        @if (\App\Models\Setting::get('youtube'))
-                            <a href="{{\App\Models\Setting::get('youtube')}}" target="_blank"><img src="{{asset('assets/website/img/social-3.svg')}}" alt=""></a>
-                        @endif
-                        @if (\App\Models\Setting::get('instagram'))
-                            <a href="{{\App\Models\Setting::get('instagram')}}" target="_blank"><img src="{{asset('assets/website/img/social-4.svg')}}" alt=""></a>
-                        @endif
+                        <a href="{{route('terms')}}">Terms</a>
+                        <a href="{{route('privacy')}}">Privacy</a>
                     </div>
                 </div>
             </div>

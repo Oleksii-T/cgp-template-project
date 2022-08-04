@@ -87,8 +87,3 @@ Breadcrumbs::for('admin.menus.edit', function ($trail, $model) {
     $trail->parent('admin.menus.index');
     $trail->push('Edit Menu # ' . $model->id, route('admin.menus.edit', $model->id));
 });
-
-// pricing-news-subscribers
-Breadcrumbs::for('admin.pricing-news-subscribers.index', function ($trail) {
-    $trail->push('Pricing News Subscribers', route('admin.pricing-news-subscribers.index'));
-});

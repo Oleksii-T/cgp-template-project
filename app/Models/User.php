@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Yajra\DataTables\DataTables;
+use App\Casts\File;
 
 class User extends Authenticatable
 {
@@ -15,8 +17,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
     ];
+
+    public $disk = 'user';
 
     protected $hidden = [
         'password',
@@ -25,6 +30,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'avatar' => File::class
     ];
 
     public function isAdmin()
@@ -35,6 +41,11 @@ class User extends Authenticatable
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    public function socials()
+    {
+        return $this->hasMany(SocialUser::class);
     }
 
     public function roles()

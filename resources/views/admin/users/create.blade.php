@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.admin.app')
 
 @section('title', 'Create User')
 
@@ -12,7 +12,7 @@
 @section('content')
     <form action="{{ route('admin.users.store') }}" method="POST" class="general-ajax-submit">
         @csrf
-        <div class="card card-info card-outline">
+        <div class="card">
             <div class="card-header">
                 <h5 class="m-0">Basic Info</h5>
             </div>
@@ -27,16 +27,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>First Name</label>
-                            <input name="first_name" type="text" class="form-control" placeholder="First Name...">
-                            <span data-input="first_name" class="input-error"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input name="last_name" type="text" class="form-control" placeholder="Last Name...">
-                            <span data-input="last_name" class="input-error"></span>
+                            <label>Name</label>
+                            <input name="name" type="text" class="form-control" placeholder="Name...">
+                            <span data-input="name" class="input-error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -48,17 +41,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" name="phone_number" class="form-control" placeholder="Phone Number...">
-                            <span data-input="phone_number" class="input-error"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>User Role</label>
-                            <select class="form-control" name="role">
-                                @foreach (\App\Models\User::ROLES as $status => $name)
-                                    <option value="{{$status}}">{{$name}}</option>
+                            <label>User Roles</label>
+                            <select class="form-control select2" name="roles[]" multiple>
+                                @foreach (\App\Models\Role::all() as $role)
+                                    <option value="{{$role->id}}">{{readable($role->name)}}</option>
                                 @endforeach
                             </select>
                             <span data-input="role" class="input-error"></span>
@@ -67,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="card card-info card-outline">
+        <div class="card">
             <div class="card-header">
                 <h5 class="m-0">Set Password</h5>
             </div>
@@ -83,7 +69,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Confirm Password</label>
-                            <input name="password_confirm" type="password" class="form-control" placeholder="Confirm Password...">
+                            <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm Password...">
                         </div>
                     </div>
                 </div>

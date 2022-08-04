@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('header')
-    @include('layouts.inc.header')
-@endsection
-
 @section('content')
     <div class="wrapper_main pt-74">
         <main class="content">
@@ -12,26 +8,26 @@
                     <img src="{{asset('assets/website/img/graf.svg')}}">
                 </div>
                 <div class="container sing-in__container">
-                    <form action="{{route('register')}}" class="sing-in__form" method="POST">
+                    <form action="{{route('register')}}" class="sing-in__form general-ajax-submit" method="POST">
                         @csrf
                         <h3 class="sing-in__title">
                             Create your free account
                         </h3>
                         <div class="login-from">
-                            @if (\App\Models\Setting::get('google_app_id') && \App\Models\Setting::get('google_app_secret'))
-                                <a href="{{route('website.social.login', 'google')}}" class="login-from__item">
+                            @if (\App\Models\Setting::get('google_client_id') && \App\Models\Setting::get('google_client_secret'))
+                                <a href="{{route('login.social', 'google')}}" class="login-from__item">
                                     <img src="{{asset('assets/website/img/flat-color-icons_google.svg')}}" alt="">
                                     <span>Login with Google</span>
                                 </a>
                             @endif
-                            @if (\App\Models\Setting::get('facebook_app_id') && \App\Models\Setting::get('facebook_app_secret'))
-                                <a href="{{route('website.social.login', 'facebook')}}" class="login-from__item">
+                            @if (\App\Models\Setting::get('facebook_client_id') && \App\Models\Setting::get('facebook_client_secret'))
+                                <a href="{{route('login.social', 'facebook')}}" class="login-from__item">
                                     <img src="{{asset('assets/website/img/facebook.svg')}}" alt="">
                                     <span>Login with Facebook</span>
                                 </a>
                             @endif
-                            @if (\App\Models\Setting::get('twitter_app_id') && \App\Models\Setting::get('twitter_app_secret'))
-                                <a href="{{route('website.social.login', 'twitter')}}" class="login-from__item">
+                            @if (\App\Models\Setting::get('twitter_client_id') && \App\Models\Setting::get('twitter_client_secret'))
+                                <a href="{{route('login.social', 'twitter')}}" class="login-from__item">
                                     <img src="{{asset('assets/website/img/akar-icons_twitter-fill.svg')}}" alt="">
                                     <span>Login with Twitter</span>
                                 </a>
@@ -80,11 +76,12 @@
                         <button type="submit" class="btn btn-sm btn-blue">
                             Sign Up
                         </button>
-                        <p class="login-form__text">Already have an account? <a href="{{route('website.login')}}" class="blue-link">Login</a></p>
+                        <p class="login-form__text">Already have an account? <a href="{{route('login')}}" class="blue-link">Login</a></p>
                     </form>
                 </div>
             </section>
         </main>
-        @include('website.layouts.inc.footer-empty')
+
+        <x-footer />
     </div>
 @endsection

@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subscription_plans', function (Blueprint $table) {
+        Schema::create('social_users', function (Blueprint $table) {
             $table->id();
-            $table->string('stripe_id')->unique();
-            $table->float('price', 9, 2);
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('interval');
-            $table->integer('trial');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('provider');
+            $table->string('token');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscription_plans');
+        Schema::dropIfExists('social_users');
     }
 };

@@ -29,7 +29,6 @@ class FortifyServiceProvider extends ServiceProvider
                 $route = auth()->user()->isAdmin()
                     ? 'admin.index'
                     : 'index';
-                dd($route);
 
                 if (!$request->ajax()) {
                     return redirect()->route($route);

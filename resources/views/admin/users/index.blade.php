@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.admin.app')
 
 @section('title', 'Users')
 
@@ -20,7 +20,7 @@
                             <select class="table-filter form-control" name="role">
                                 <option value="">Role filter</option>
                                 @foreach (\App\Models\Role::all() as $role)
-                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                    <option value="{{$role->id}}">{{readable($role->name)}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -33,7 +33,6 @@
                                 <th class="ids-column">ID</th>
                                 <th>Email</th>
                                 <th>Name</th>
-                                <th>Phone</th>
                                 <th>Created_at</th>
                                 <th class="actions-column-2">Actions</th>
                             </tr>

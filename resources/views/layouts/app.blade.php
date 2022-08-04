@@ -46,6 +46,7 @@
         <script src="{{asset('js/auth.js')}}"></script>
         <script src="{{asset('js/profile.js')}}"></script>
         <script src="{{asset('js/pricing.js')}}"></script>
+        <script src="{{asset('js/custom.js')}}"></script>
         @stack('scripts')
     </body>
 </html>

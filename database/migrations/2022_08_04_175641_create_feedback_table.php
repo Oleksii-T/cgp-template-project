@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subscription_plans', function (Blueprint $table) {
+        Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->string('stripe_id')->unique();
-            $table->float('price', 9, 2);
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('interval');
-            $table->integer('trial');
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscription_plans');
+        Schema::dropIfExists('feedback');
     }
 };
