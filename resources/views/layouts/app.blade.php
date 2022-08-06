@@ -43,9 +43,9 @@
         <script src="{{asset('js/main-alpha.js')}}"></script>
         <script src="{{asset('js/main-bravo.js')}}"></script>
         <script src="{{asset('js/main-charlie.js')}}"></script>
-        <script src="{{asset('js/auth.js')}}"></script>
-        <script src="{{asset('js/profile.js')}}"></script>
-        <script src="{{asset('js/pricing.js')}}"></script>
+        {{-- <script src="{{asset('js/auth.js')}}"></script> --}}
+        {{-- <script src="{{asset('js/profile.js')}}"></script> --}}
+        {{-- <script src="{{asset('js/pricing.js')}}"></script> --}}
         <script src="{{asset('js/custom.js')}}"></script>
         @stack('scripts')
     </body>

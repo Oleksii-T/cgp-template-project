@@ -1,13 +1,17 @@
 $(document).ready(function () {
-    $('.summernote').summernote();
-    $('.select2').select2();
+    // $('.summernote').summernote();
+    // $('.select2').select2();
 
     // general logic of ajax form submit (supports files)
     $('form.general-ajax-submit').submit(function(e){
         e.preventDefault();
-        showLoading();
         let form = $(this);
+        let button = $(this).find('button[type=submit]');
         let formData = new FormData(this);
+        if (button.hasClass('cursor-wait')) {
+            return;
+        }
+        button.addClass('cursor-wait');
         $('.input-error').empty();
 
         $.ajax({
@@ -18,10 +22,11 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: (response)=>{
+                button.removeClass('cursor-wait');
                 showServerSuccess(response);
             },
             error: function(response) {
-                swal.close();
+                button.removeClass('cursor-wait');
                 showServerError(response);
             }
         });
@@ -82,8 +87,10 @@ const Toast = Swal.mixin({
 // general error logic, after ajax form submit been processed
 function showServerError(response) {
     // TODO display errors from array inputs
+    console.log('response', response);
     if (response.status == 422) {
-        for (const [field, value] of Object.entries(response.responseJSON.errors)) {
+        let r = response.responseJSON ?? JSON.parse(response.responseText)
+        for (const [field, value] of Object.entries(r.errors)) {
             let errorText = '';
             let errorElement = $(`.input-error[data-input=${field}]`);
             errorElement = errorElement.length ? errorElement : $(`.input-error[data-input="${field}[]"]`);
@@ -102,11 +109,14 @@ function showServerError(response) {
 // general success logic, after ajax form submit been processed
 function showServerSuccess(response) {
     if (response.success) {
-        swal.fire("Success!", response.message, 'success').then((result) => {
-            if (response.data.redirect) {
-                window.location.href = response.data.redirect;
-            }
-        });
+        if (response.data.redirect) {
+            window.location.href = response.data.redirect;
+        } else if (response.data.message) {
+            Toast.fire({
+                icon: 'success',
+                title: response.data.message
+            });
+        }
     } else {
         swal.fire("Error!", response.message, 'error');
     }

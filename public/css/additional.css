@@ -1,4 +1,4 @@
-.invalid-feedback{
+.input-error{
     color : red;
     font-size: 14px;
     font-weight: 500;
@@ -46,6 +46,9 @@
 }
 .header__logo img {
     max-height: 74px;
+}
+.cursor-wait {
+    cursor: wait;
 }
 
 .feature-items img {

@@ -25,11 +25,11 @@ $(document).ready(function () {
     });
 
     var galleryTop = new Swiper('.gallery-top', {
-        slidesPerView: 1,  
+        slidesPerView: 1,
         loop: true,
         loopedSlides: 50,
         centeredSlides: true,
-        
+
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
@@ -83,12 +83,12 @@ $(document).ready(function () {
         $("#" + activeTab)
           .fadeIn(200)
           .addClass("current");
-      
+
         $(".account-sidebar li").removeClass("current");
         $(this).addClass("current");
     });
 */
-    
+
     $(".account-sidebar2 li[rel]").click(function (ev) {
         ev.preventDefault();
         $(".tab-content2").hide().removeClass("current");
@@ -96,7 +96,7 @@ $(document).ready(function () {
         $("#" + activeTab)
           .fadeIn(200)
           .addClass("current");
-      
+
         $(".account-sidebar2 li").removeClass("current");
         $(this).addClass("current");
     });
@@ -130,58 +130,61 @@ $(document).ready(function () {
     let account_sidebar1 = document.querySelector(".account-sidebar1 ul");
     if(window.innerWidth <= 950){
         lies.click(function (ev) {
-           
+
             account_sidebar1.style.display = "none";
             ev.preventDefault();
             let mobile_select = document.querySelector(".mobile-select-menu span");
             mobile_select.innerHTML = ev.target.innerHTML;
-            
-    
+
+
             $(".tab-content").hide().removeClass("current");
             var activeTab = $(this).attr("rel");
             $("#" + activeTab)
               .fadeIn(200)
               .addClass("current");
-          
+
             $(".account-sidebar1 li").removeClass("current");
             $(this).addClass("current");
         });
     }else{
         lies.click(function (ev) {
-        
-        
+
+
             ev.preventDefault();
             let mobile_select = document.querySelector(".mobile-select-menu span");
+            // if (!mobile_select) {
+            //     return;
+            // }
             mobile_select.innerHTML = ev.target.innerHTML;
-            
-    
+
+
             $(".tab-content").hide().removeClass("current");
             var activeTab = $(this).attr("rel");
             $("#" + activeTab)
               .fadeIn(200)
               .addClass("current");
-          
+
             $(".account-sidebar1 li").removeClass("current");
             $(this).addClass("current");
         });
     }
-    
 
 
-    
+
+
     let mobile_select = document.querySelector(".mobile-select-menu");
     if(mobile_select){
         mobile_select.addEventListener("click", (ev) =>
         {
             account_sidebar1.style.display = "block";
             let list = ev.target.parentElement.querySelector("ul");
-            
+
             let image_arrow = ev.target.querySelector("img");
 
             image_arrow.classList.toggle("translate-arrow");
             list.classList.toggle("hidden-list");
-           
+
         })
     }
-    
+
 });

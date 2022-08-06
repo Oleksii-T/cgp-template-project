@@ -24,7 +24,8 @@ Route::get('plans', [PageController::class, 'plans'])->name('plans');
 Route::get('terms', [PageController::class, 'terms'])->name('terms');
 Route::get('privacy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('about-us', [PageController::class, 'aboutUs'])->name('about-us');
-Route::get('login/social/{provider}', [SocialAuthController::class, 'redirect'])->name('login.social');
+Route::get('auth/social/{provider}', [SocialAuthController::class, 'redirect'])->name('auth.social');
+Route::get('auth/callback/{provider}', [SocialAuthController::class, 'callback']);
 
 Route::get('about-us', [PageController::class, 'aboutUs'])->name('about-us');
 

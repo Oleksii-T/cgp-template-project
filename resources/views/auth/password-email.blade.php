@@ -1,18 +1,14 @@
-@extends('website.layouts.app')
-
-@section('header')
-    @include('website.layouts.inc.header')
-@endsection
+@extends('layouts.app')
 
 @section('content')
     <div class="wrapper_main pt-74">
         <main class="content">
             <section class="sing-in">
                 <div class="offer-image">
-                    <img src="{{asset('assets/website/img/graf.svg')}}">
+                    <img src="{{asset('img/graf.svg')}}">
                 </div>
                 <div class="container sing-in__container">
-                    <form action="{{ route('password.email') }}" method="post" class="sing-in__form" data-home="{{route('website.profile')}}">
+                    <form action="{{ route('password.email') }}" method="post" class="sing-in__form">
                         @csrf
                         <h3 class="sing-in__title">
                             Forgot password
@@ -24,19 +20,20 @@
                         @endif
                         <div class="input-group">
                             <label class="input-group__title">Email address</label>
-                            <input type="text" class="input" name="email" placeholder="alma.lawson@example.com">
+                            <input type="text" class="input" name="email">
                             @error('email')
-                                <span class="invalid-feedback">{{$message}}</span>
+                                <span class="input-error">{{$message}}</span>
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-sm btn-blue">
                             Send password reset link
                         </button>
-                        <p class="login-form__text">Already have an account? <a href="{{route('website.login')}}" class="blue-link">Login</a></p>
+                        <p class="login-form__text">Already have an account? <a href="{{route('login')}}" class="blue-link">Login</a></p>
                     </form>
                 </div>
             </section>
         </main>
-        @include('website.layouts.inc.footer-empty')
+        <footer class="footer">
+        </footer>
     </div>
 @endsection
