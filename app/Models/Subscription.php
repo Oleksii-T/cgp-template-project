@@ -45,6 +45,11 @@ class Subscription extends Model
         $this->update(['status' => 'canceled']);
     }
 
+    public function isActive()
+    {
+        return (bool)$this->cycle;
+    }
+
     public static function dataTable($query)
     {
         return DataTables::of($query)

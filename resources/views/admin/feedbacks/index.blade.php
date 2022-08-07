@@ -1,11 +1,11 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Subscriptions')
+@section('title', 'Feedbacks')
 
 @section('content_header')
     <x-admin.title
-        text="Subscriptionss"
-        bcRoute="admin.subscriptions.index"
+        text="Feedbacks"
+        bcRoute="admin.feedbacks.index"
     />
 @stop
 
@@ -14,13 +14,13 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="subscriptions-table" class="table table-bordered table-striped">
+                    <table id="feedbacks-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th class="ids-column">ID</th>
-                                <th>User Name</th>
-                                <th>Subscription Plan</th>
-                                <th>Status</th>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Title</th>
                                 <th>Created at</th>
                                 <th class="actions-column-2">Actions</th>
                             </tr>
@@ -35,5 +35,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('/js/admin/subscriptions.js')}}"></script>
+    <script src="{{asset('/js/admin/feedbacks.js')}}"></script>
 @endpush

@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('original_name');
-            $table->string('path');
             $table->string('type')->nullable();
             $table->double('size')->nullable();
+            $table->string('group')->nullable();
             $table->bigInteger('attachmentable_id');
             $table->string('attachmentable_type');
             $table->timestamps();

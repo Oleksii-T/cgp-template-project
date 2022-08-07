@@ -12,16 +12,15 @@ class ProfileController extends Controller
     {
         return view('profile.index');
     }
-
     public function update(ProfileRequest $request)
     {
         $data = $request->validated();
         $user = auth()->user();
 
-        if ($data['password']) {
+        if ($data['password']??null) {
             $data['password'] = Hash::make($data['password']);
         } else {
-            ubset($data['password']);
+            unset($data['password']);
         }
 
         $user->update($data);

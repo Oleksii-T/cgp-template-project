@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->string('email');
+            $table->string('title');
+            $table->text('text');
             $table->timestamps();
         });
     }

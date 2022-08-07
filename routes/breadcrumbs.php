@@ -87,3 +87,12 @@ Breadcrumbs::for('admin.menus.edit', function ($trail, $model) {
     $trail->parent('admin.menus.index');
     $trail->push('Edit Menu # ' . $model->id, route('admin.menus.edit', $model->id));
 });
+
+// Menus
+Breadcrumbs::for('admin.feedbacks.index', function ($trail) {
+    $trail->push('Feedbacks', route('admin.feedbacks.index'));
+});
+Breadcrumbs::for('admin.feedbacks.show', function ($trail, $model) {
+    $trail->parent('admin.feedbacks.index');
+    $trail->push('Feedback # ' . $model->id, route('admin.feedbacks.show', $model));
+});

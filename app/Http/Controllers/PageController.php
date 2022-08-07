@@ -11,11 +11,6 @@ class PageController extends Controller
         return view('index');
     }
 
-    public function plans()
-    {
-        return view('plans');
-    }
-
     public function terms()
     {
         return view('terms');

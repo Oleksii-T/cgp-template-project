@@ -50,6 +50,6 @@ class SubscriptionController extends Controller
 
         $subscription->delete();
 
-        return $this->jsonSuccess(null, "The Subscription  #$subscription->id successfully deleted!");
+        return $this->jsonSuccess("The Subscription  #$subscription->id successfully deleted!");
     }
 }

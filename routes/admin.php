@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\SubscriptionPlanController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\AttachmentController;
 
 /*
  *
@@ -28,6 +30,8 @@ Route::middleware('is-admin')->group(function () {
 
     Route::resource('subscription-plans', SubscriptionPlanController::class)->except('show');
 
+    Route::resource('feedbacks', FeedbackController::class)->only(['index', 'show', 'destroy']);
+
     Route::resource('subscriptions', SubscriptionController::class)->only(['index', 'show', 'destroy']);
 
     Route::get('pages/{page}/edit-blocks', [PageController::class, 'editBlocks'])->name('pages.edit-blocks');
@@ -42,4 +46,8 @@ Route::middleware('is-admin')->group(function () {
 		Route::post('get-sortable', [MenuController::class, 'get_sortable'])->name('get-sortable');
 		Route::post('save-sortable', [MenuController::class, 'save_sortable'])->name('save-sortable');
 	});
+
+    Route::prefix('attachments')->name('attachments.')->group(function () {
+        Route::get('{attachment}/download', [AttachmentController::class, 'download'])->name('download');
+    });
 });

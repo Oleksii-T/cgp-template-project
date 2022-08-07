@@ -256,6 +256,11 @@ return [
             'icon' => 'fas fa-fw fa-list',
         ],
         [
+            'text' => 'Feedbacks',
+            'route'  => 'admin.feedbacks.index',
+            'icon' => 'fas fa-fw fa-list',
+        ],
+        [
             'text' => 'Settings',
             'route'  => 'admin.settings.index',
             'icon' => 'fas fa-fw fa-cogs',

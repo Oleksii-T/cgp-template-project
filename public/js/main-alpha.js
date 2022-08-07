@@ -152,10 +152,9 @@ $(document).ready(function () {
 
             ev.preventDefault();
             let mobile_select = document.querySelector(".mobile-select-menu span");
-            // if (!mobile_select) {
-            //     return;
-            // }
-            mobile_select.innerHTML = ev.target.innerHTML;
+            if (mobile_select) {
+                mobile_select.innerHTML = ev.target.innerHTML;
+            }
 
 
             $(".tab-content").hide().removeClass("current");

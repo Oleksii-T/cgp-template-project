@@ -108,13 +108,14 @@ function showServerError(response) {
 
 // general success logic, after ajax form submit been processed
 function showServerSuccess(response) {
+    console.log('response success', response);
     if (response.success) {
-        if (response.data.redirect) {
+        if (response.data?.redirect) {
             window.location.href = response.data.redirect;
-        } else if (response.data.message) {
+        } else if (response.message) {
             Toast.fire({
                 icon: 'success',
-                title: response.data.message
+                title: response.message
             });
         }
     } else {

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Database\Eloquent\Casts\Attribute;
 class Attachment extends Model
 {
     /**
@@ -13,7 +13,7 @@ class Attachment extends Model
      */
 	protected $fillable = [
         'name',
-        'path',
+        'group',
         'original_name',
         'type',
         'size',
@@ -50,30 +50,25 @@ class Attachment extends Model
         parent::boot();
 
         static::deleting(function ($model) {
-            if ($model->url != null && Storage::exists(str_replace('storage', "public", $model->url))) {
-                Storage::delete(str_replace('storage', "public", $model->url));
-            }
+            $disk = self::disk($model->type);
+            Storage::disk($disk)->delete($model->name);
         });
     }
 
     public function url(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => strpos($this->path, 'http') === 0
-                ? $this->path
-                : Storage::disk(self::disk($this->type))->url($this->name),
+            get: fn ($value) => Storage::disk(self::disk($this->type))->url($this->name),
         );
     }
 
     public static function disk($type)
     {
-        switch ($type) {
-            case 'video':
-                return 'videos';
-            case 'image':
-                return 'images';
-            default:
-                return 'files';
-        }
+        return match ($type) {
+            'video' => 'avideos',
+            'image' => 'aimages',
+            'document' => 'adocuments',
+            default => 'attachments',
+        };
     }
 }
