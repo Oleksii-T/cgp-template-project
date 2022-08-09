@@ -258,7 +258,7 @@ return [
         [
             'text' => 'Feedbacks',
             'route'  => 'admin.feedbacks.index',
-            'icon' => 'fas fa-fw fa-list',
+            'icon' => 'fas fa-fw fa-paper-plane',
         ],
         [
             'text' => 'Settings',

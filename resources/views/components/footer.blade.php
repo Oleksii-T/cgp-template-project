@@ -17,10 +17,10 @@
                             <h4 class="footer__menu-title">Product</h4>
                             <ul class="footer__menu-list">
                                 <li>
-                                    <a href="{{route('how-it-works')}}">How it works</a>
+                                    <a href="/how-it-works">How it works</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('plans')}}">Pricing</a>
+                                    <a href="{{route('subscription-plans.index')}}">Pricing</a>
                                 </li>
                                 <li>
                                     <a href="{{route('faq')}}">FAQ</a>
@@ -31,7 +31,7 @@
                             <h4 class="footer__menu-title">Company</h4>
                             <ul class="footer__menu-list">
                                 <li>
-                                    <a href="{{route('about-us')}}">About Us</a>
+                                    <a href="/about-us">About Us</a>
                                 </li>
                             </ul>
                         </div>
@@ -50,8 +50,8 @@
                 <p class="footer__bottom-privaci">© 2021 Company Ltd. All rights reserved.</p>
                 <div class="footer__bottom-right">
                     <div class="footer__bottom-links">
-                        <a href="{{route('terms')}}">Terms</a>
-                        <a href="{{route('privacy')}}">Privacy</a>
+                        <a href="/terms">Terms</a>
+                        <a href="/privacy">Privacy</a>
                     </div>
                 </div>
             </div>

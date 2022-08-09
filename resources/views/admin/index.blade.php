@@ -1408,7 +1408,7 @@
                                     <td>{{$subscription->plan->title}}</td>
                                     <td>{{$subscription->status}}</td>
                                     <td>{{$subscription->created_at->format(env('ADMIN_DATETIME_FORMAT'))}}</td>
-                                    <td>@include('admin.subscrptions.actions-list', ['model' => $subscription])</td>
+                                    <td>@include('admin.subscriptions.actions-list', ['model' => $subscription])</td>
                                 </tr>
                             @endforeach
                         </tbody>

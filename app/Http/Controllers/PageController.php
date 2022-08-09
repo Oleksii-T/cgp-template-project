@@ -3,41 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Page;
 
 class PageController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $page = Page::get('/');
+        return view('index', compact('page'));
     }
 
-    public function terms()
+    public function blog()
     {
-        return view('terms');
-    }
-
-    public function privacy()
-    {
-        return view('privacy');
-    }
-
-    public function howItWorks()
-    {
-        return view('how-it-works');
-    }
-
-    public function aboutUs()
-    {
-        return view('about-us');
+        return view('blog');
     }
 
     public function faq()
     {
+        $page = Page::get('faq');
         return view('faq');
     }
 
-    public function contactUs()
+    public function page(Request $request, $url)
     {
-        return view('contact-us');
+        // static pages are routed manualy via router
+        $page = Page::where('link', $url)->where('status', 'published')->firstOrFail();
+
+        return view('page', compact('page'));
     }
 }

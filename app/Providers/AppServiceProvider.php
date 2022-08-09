@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
+use App\Models\Menu;
+use App\Models\Page;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,9 +28,39 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer('*', function($view) {
+            $cashTime = 5;
+
             $view->with(
                 'currentUser',
                 auth()->user()
+            );
+
+            // $view->with(
+            //     'mainMenu',
+            //     Cache::remember('mainMenu', $cashTime, function() {
+            //         return Menu::where('code', 'main')->first()->items()->with('children')->get();
+            //     })
+            // );
+
+            // $view->with(
+            //     'footerMenu',
+            //     Cache::remember('footerMenu', $cashTime, function() {
+            //         return Menu::where('code', 'footer')->first()->items()->with('children')->get();
+            //     })
+            // );
+
+            $view->with(
+                'headerBlock',
+                Cache::remember('headerBlock', $cashTime, function() {
+                    return Page::get('/')->blocks()->where('name', 'header')->first();
+                })
+            );
+
+            $view->with(
+                'footerBlock',
+                Cache::remember('footerBlock', $cashTime, function() {
+                    return Page::get('/')->blocks()->where('name', 'footer')->first();
+                })
             );
         });
 

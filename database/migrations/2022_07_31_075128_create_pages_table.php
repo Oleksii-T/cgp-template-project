@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('status')->default('draft');
             $table->string('title');
             $table->string('link')->unique();
-            $table->string('template')->default('page');
             $table->longText('content')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

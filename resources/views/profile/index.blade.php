@@ -328,5 +328,7 @@
                 </div>
             </section>
         </main>
+
+        <x-footer />
     </div>
 @endsection

@@ -7,17 +7,17 @@
             <nav class="header__menu menu">
                 <ul class="menu__list">
                     <li>
-                        <a href="{{route('plans')}}">
+                        <a href="{{route('subscription-plans.index')}}">
                             Pricing
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('about-us')}}">
+                        <a href="/about-us">
                             About Us
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('how-it-works')}}">
+                        <a href="/how-it-works">
                             How It Works
                         </a>
                     </li>

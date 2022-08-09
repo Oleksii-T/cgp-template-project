@@ -28,8 +28,8 @@ class PageRequest extends FormRequest
         if ($model){
             // update
             $rules = [
-                'meta_title' => ['required','string','max:70'],
-                'meta_description' => ['required','string','max:255'],
+                'meta_title' => ['nullable','string','max:70'],
+                'meta_description' => ['nullable','string','max:255'],
                 'title' => ['required','string','max:70'],
             ];
             if ($model->status == 'static'){
@@ -45,8 +45,8 @@ class PageRequest extends FormRequest
         //create
         return [
             'title' => ['required','string','max:70'],
-            'meta_title' => ['required','string','max:70'],
-            'meta_description' => ['required','string','max:255'],
+            'meta_title' => ['nullable','string','max:70'],
+            'meta_description' => ['nullable','string','max:255'],
             'link' => ['required','string','max:255'],
             'status' => ['required','in:draft,published'],
             'content' => ['required','string','max:50000']

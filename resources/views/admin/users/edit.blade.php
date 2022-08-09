@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="card card-info card-outline">
+        <div class="card">
             <div class="card-header">
                 <h5 class="m-0">Set Password</h5>
             </div>

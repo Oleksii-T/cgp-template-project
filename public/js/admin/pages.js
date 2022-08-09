@@ -6,6 +6,7 @@ $(document).ready(function () {
 			url: window.location.href
 		},
         columns: [
+            { data: 'id', name: 'id' },
             { data: 'title', name: 'title' },
             { data: 'link', name: 'link' },
             { data: 'status', name: 'status' },

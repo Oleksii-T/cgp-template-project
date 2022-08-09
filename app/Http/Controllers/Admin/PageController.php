@@ -30,9 +30,9 @@ class PageController extends Controller
         $data = $request->validated();
         Page::create($data);
 
-        return $this->jsonSuccess([
+        return $this->jsonSuccess('Page created successfully', [
             'redirect' => route('admin.pages.index')
-        ], 'Page created successfully');
+        ]);
     }
 
     public function edit(Page $page)
@@ -45,9 +45,7 @@ class PageController extends Controller
         $data = $request->validated();
         $page->update($data);
 
-        return $this->jsonSuccess([
-            'redirect' => route('admin.pages.edit', $page)
-        ], 'Page updated successfully');
+        return $this->jsonSuccess('Page updated successfully');
     }
 
     public function editBlocks(Page $page)
@@ -57,6 +55,7 @@ class PageController extends Controller
 
     public function updateBlocks(Request $request, Page $page)
     {
+        $disk = Storage::disk('pages');
         foreach ($request->blocks as $id => $block) {
             foreach ($block as $item_name => $item) {
                 if ($item['type'] == 'dynamic') {
@@ -72,7 +71,7 @@ class PageController extends Controller
                             }elseif ($type == 'image'){
                                 $tmp_item['blocks'][$number][$name] = [
                                     'value' => isset($tmp_block['value'][$number])
-                                        ? Storage::disk('pages')->putFile("", $tmp_block['value'][$number])
+                                        ? $disk->putFile("", $tmp_block['value'][$number])
                                         : $tmp_block['value_old'][$number],
                                     'type' => $type
                                 ];
@@ -87,7 +86,7 @@ class PageController extends Controller
                     $block[$item_name] = $tmp_item;
                 } else if ($item['type'] == 'image') {
                     $block[$item_name]['value'] = isset($item['value'])
-                        ? Storage::disk('pages')->putFile("", $item['value'])
+                        ? $disk->putFile("", $item['value'])
                         : $item['value_old'];
                 }
             }
@@ -97,7 +96,9 @@ class PageController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.pages.edit', $page);
+        return $this->jsonSuccess('Page updated successfully', [
+            'redirect' => route('admin.pages.edit', $page)
+        ]);
     }
 
     public function destroy(Page $page)
@@ -108,6 +109,6 @@ class PageController extends Controller
 
         $page->delete();
 
-        return $this->jsonSuccess([], 'Page deleted successfully');
+        return $this->jsonSuccess('Page deleted successfully');
     }
 }
