@@ -35,19 +35,40 @@ class AppServiceProvider extends ServiceProvider
                 auth()->user()
             );
 
-            // $view->with(
-            //     'mainMenu',
-            //     Cache::remember('mainMenu', $cashTime, function() {
-            //         return Menu::where('code', 'main')->first()->items()->with('children')->get();
-            //     })
-            // );
+            $view->with(
+                'headerMenu',
+                Cache::remember('headerMenu', $cashTime, function() {
+                    return Menu::where('code', 'header')->first()->items()->with('children')->get();
+                })
+            );
 
-            // $view->with(
-            //     'footerMenu',
-            //     Cache::remember('footerMenu', $cashTime, function() {
-            //         return Menu::where('code', 'footer')->first()->items()->with('children')->get();
-            //     })
-            // );
+            $view->with(
+                'footer1Menu',
+                Cache::remember('footer1Menu', $cashTime, function() {
+                    return Menu::where('code', 'footer-1')->first()->items()->with('children')->get();
+                })
+            );
+
+            $view->with(
+                'footer2Menu',
+                Cache::remember('footer2Menu', $cashTime, function() {
+                    return Menu::where('code', 'footer-2')->first()->items()->with('children')->get();
+                })
+            );
+
+            $view->with(
+                'footer3Menu',
+                Cache::remember('footer3Menu', $cashTime, function() {
+                    return Menu::where('code', 'footer-3')->first()->items()->with('children')->get();
+                })
+            );
+
+            $view->with(
+                'footerBottom',
+                Cache::remember('footerBottom', $cashTime, function() {
+                    return Menu::where('code', 'footer-bottom')->first()->items()->with('children')->get();
+                })
+            );
 
             $view->with(
                 'headerBlock',

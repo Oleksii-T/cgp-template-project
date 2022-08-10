@@ -8,8 +8,8 @@
             <section class="account first-section-padding">
                 <div class="container">
                     <div class="heading-account">
-                        <h3>Contact us</h3>
-                        <span>Leave a feedback</span>
+                        <h3>{{$page->show('top:title')}}</h3>
+                        <span>{{$page->show('top:text')}}</span>
                     </div>
                     <div class="content-account">
                         <div class="account-content">
@@ -24,7 +24,7 @@
                                                         <div class="input-group-col-2">
                                                             <div class="input-group">
                                                                 <label class="input-group__title">
-                                                                    Title
+                                                                    {{$page->show('content:title')}}
                                                                 </label>
                                                                 <input type="text" class="input" name="title">
                                                                 <span data-input="title" class="input-error"></span>
@@ -33,7 +33,7 @@
                                                         <div class="input-group-col-2">
                                                             <div class="input-group">
                                                                 <label class="input-group__title">
-                                                                    Email Address
+                                                                    {{$page->show('content:email')}}
                                                                 </label>
                                                                 <input type="text" class="input" name="email" value="{{$currentUser->email??''}}">
                                                                 <span data-input="email" class="input-error"></span>
@@ -46,7 +46,7 @@
                                                         <div class="input-group-col-2">
                                                             <div class="input-group">
                                                                 <label class="input-group__title">
-                                                                    Content
+                                                                    {{$page->show('content:content')}}
                                                                 </label>
                                                                 <textarea class="input" name="text"></textarea>
                                                                 <span data-input="text" class="input-error"></span>
@@ -54,13 +54,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h3>Attachments</h3>
+                                                <h3>{{$page->show('content:attachments')}}</h3>
                                                 <div class="form-content">
                                                     <div class="input-group-row">
                                                         <div class="input-group-col-2">
                                                             <div class="input-group">
                                                                 <label class="input-group__title">
-                                                                    Image
+                                                                    {{$page->show('content:image')}}
                                                                 </label>
                                                                 <input type="file" class="input" name="image">
                                                                 <span data-input="image" class="input-error"></span>
@@ -69,7 +69,7 @@
                                                         <div class="input-group-col-2">
                                                             <div class="input-group">
                                                                 <label class="input-group__title">
-                                                                    File
+                                                                    {{$page->show('content:file')}}
                                                                 </label>
                                                                 <input type="file" class="input" name="file">
                                                                 <span data-input="file" class="input-error"></span>
@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
                                     <div class="actions-butts">
-                                        <button type="submit" class="btn btn-sm btn-blue">Send</button>
+                                        <button type="submit" class="btn btn-sm btn-blue">{{$page->show('content:send')}}</button>
                                     </div>
                                 </form>
                             </div>

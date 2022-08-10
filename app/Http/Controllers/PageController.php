@@ -10,18 +10,15 @@ class PageController extends Controller
     public function index()
     {
         $page = Page::get('/');
-        return view('index', compact('page'));
-    }
 
-    public function blog()
-    {
-        return view('blog');
+        return view('index', compact('page'));
     }
 
     public function faq()
     {
         $page = Page::get('faq');
-        return view('faq');
+
+        return view('faq', compact('page'));
     }
 
     public function page(Request $request, $url)

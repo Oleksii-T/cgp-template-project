@@ -5,41 +5,50 @@
             <div class="footer__top">
                 <div class="footer__top-left">
                     <a href="{{route('index')}}" class="footer__logo logo">
-                        <img src="{{asset('img/logo.svg')}}" alt="">
+                        <img src="{{$footerBlock->show('logo')}}" alt="">
                     </a>
                     <span class="footer__slogan">
-                        Best trading simulation app, built for traders by traders.
+                        {{$footerBlock->show('text')}}
                     </span>
                 </div>
                 <div class="footer__top-right">
                     <nav class="footer__menu">
                         <div class="footer__menu-item">
-                            <h4 class="footer__menu-title">Product</h4>
+                            <h4 class="footer__menu-title">{{$footerBlock->show('menu-1')}}</h4>
                             <ul class="footer__menu-list">
-                                <li>
-                                    <a href="/how-it-works">How it works</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('subscription-plans.index')}}">Pricing</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('faq')}}">FAQ</a>
-                                </li>
+                                @foreach ($footer1Menu as $item)
+                                    <li>
+                                        <a href="{{url($item->link)}}">
+                                            {{$item->title}}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="footer__menu-item">
-                            <h4 class="footer__menu-title">Company</h4>
+                            <h4 class="footer__menu-title">{{$footerBlock->show('menu-2')}}</h4>
                             <ul class="footer__menu-list">
-                                <li>
-                                    <a href="/about-us">About Us</a>
-                                </li>
+                                @foreach ($footer2Menu as $item)
+                                    <li>
+                                        <a href="{{url($item->link)}}">
+                                            {{$item->title}}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="footer__menu-item">
-                            <h4 class="footer__menu-title">Contact Us</h4>
+                            <h4 class="footer__menu-title">{{$footerBlock->show('menu-3')}}</h4>
                             <ul class="footer__menu-list">
+                                @foreach ($footer3Menu as $item)
+                                    <li>
+                                        <a href="{{url($item->link)}}">
+                                            {{$item->title}}
+                                        </a>
+                                    </li>
+                                @endforeach
                                 <li>
-                                    <a href="#">support@mail.com</a>
+                                    <a href="mailto:{{$footerBlock->show('email')}}">{{$footerBlock->show('email')}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -47,11 +56,12 @@
                 </div>
             </div>
             <div class="footer__bottom">
-                <p class="footer__bottom-privaci">© 2021 Company Ltd. All rights reserved.</p>
+                <p class="footer__bottom-privaci">{{$footerBlock->show('copyright')}}</p>
                 <div class="footer__bottom-right">
                     <div class="footer__bottom-links">
-                        <a href="/terms">Terms</a>
-                        <a href="/privacy">Privacy</a>
+                        @foreach ($footerBottom as $item)
+                            <a href="{{url($item->link)}}">{{$item->title}}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>

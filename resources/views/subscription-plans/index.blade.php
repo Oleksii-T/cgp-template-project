@@ -6,8 +6,8 @@
             <section class="pricing first-section-padding">
                 <div class="container pricing__contaner">
                     <div class="pricing__body">
-                        <h2 class="section-title">Pricing</h2>
-                        <p class="section-subtitle">Here are some screenshots of our product and features</p>
+                        <h2 class="section-title">{{$page->show('top:title')}}</h2>
+                        <p class="section-subtitle">{{$page->show('top:text')}}</p>
                         @if (session('error'))
                             <p class="section-subtitle custom-error">{{session('error')}}</p>
                         @endif
@@ -24,9 +24,6 @@
                                         <div class="pricing-item">
                                             <div class="pricing-item__head">
                                                 <h3>{{$plan->title}}</h3>
-                                                @if ($plan->popular)
-                                                    <span class="pricing-item__stiker">Popular</span>
-                                                @endif
                                             </div>
                                             <div class="pricing-item__price">
                                                 {{$plan->price==0? 'Free' : $plan->price_readable}}
@@ -47,11 +44,11 @@
                                                 @if ($activeSub && $activeSub->subscription_plan_id == $plan->id)
                                                     {{-- is active plan --}}
                                                     <button class="btn btn-sm btn-blue-transp" disabled>
-                                                        Subscribed
+                                                        {{$page->show('content:subscribed')}}
                                                     </button>
                                                 @else
                                                     <a href="{{route('subscription-plans.show', $plan)}}" class="btn btn-sm btn-blue-transp">
-                                                        Sign Up
+                                                        {{$page->show('content:subscribe')}}
                                                     </a>
                                                 @endif
                                             </form>

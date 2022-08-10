@@ -6,8 +6,8 @@
             <section class="fqa first-section-padding">
                 <div class="container fqa__container">
                     <div class="fqa__body">
-                        <h2 class="section-title">We are here to help</h2>
-                        <p class="section-subtitle">Browse through our most frequently asked questions</p>
+                        <h2 class="section-title">{{$page->show('top:title')}}</h2>
+                        <p class="section-subtitle">{{$page->show('top:text')}}</p>
                         <div class="acordeon">
                             <ul class="accordion-list">
                                                                                                             <li>

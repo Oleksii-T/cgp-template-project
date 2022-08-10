@@ -10,12 +10,15 @@ use App\Models\Feedback;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FeedbackMail;
+use App\Models\Page;
 
 class FeedbackController extends Controller
 {
     public function index()
     {
-        return view('feedbacks.index');
+        $page = Page::get('contact-us');
+
+        return view('feedbacks.index', compact('page'));
     }
 
     public function store(FeedbackRequest $request)

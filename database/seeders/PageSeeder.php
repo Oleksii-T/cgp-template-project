@@ -48,6 +48,10 @@ class PageSeeder extends Seeder
                                 'value' => 'Our Features',
                                 'type' => 'text'
                             ],
+                            'text' => [
+                                'value' => 'Boost up your work with advance and flexible features',
+                                'type' => 'text'
+                            ],
                             'items' => [
                                 'type' => 'dynamic',
                                 'blocks' => [
@@ -157,7 +161,7 @@ class PageSeeder extends Seeder
                     [
                         'name' => 'header',
                         'data' => [
-                            'title' => [
+                            'logo' => [
                                 'value' => 'logo.svg',
                                 'type' => 'image'
                             ],
@@ -172,17 +176,13 @@ class PageSeeder extends Seeder
                             'login' => [
                                 'value' => 'Log in',
                                 'type' => 'text'
-                            ],
-                            'signup' => [
-                                'value' => 'Sign up',
-                                'type' => 'text'
                             ]
                         ]
                     ],
                     [
                         'name' => 'footer',
                         'data' => [
-                            'title' => [
+                            'logo' => [
                                 'value' => 'logo.svg',
                                 'type' => 'image'
                             ],
@@ -222,7 +222,7 @@ class PageSeeder extends Seeder
                 ],
                 'blocks' => [
                     [
-                        'name' => 'content',
+                        'name' => 'top',
                         'data' => [
                             'title' => [
                                 'value' => 'Pricing',
@@ -230,6 +230,78 @@ class PageSeeder extends Seeder
                             ],
                             'text' => [
                                 'value' => 'Here are some screenshots of our product and features',
+                                'type' => 'text'
+                            ],
+                        ]
+                    ],
+                    [
+                        'name' => 'content',
+                        'data' => [
+                            'subscribed' => [
+                                'value' => 'Subscribed',
+                                'type' => 'text'
+                            ],
+                            'subscribe' => [
+                                'value' => 'Sign up',
+                                'type' => 'text'
+                            ],
+                        ]
+                    ],
+                ]
+            ],
+            [
+                'page' => [
+                    'status' => 'static',
+                    'title' => 'Contact Us',
+                    'link' => 'contact-us',
+                ],
+                'blocks' => [
+                    [
+                        'name' => 'top',
+                        'data' => [
+                            'title' => [
+                                'value' => 'Contact us',
+                                'type' => 'text'
+                            ],
+                            'text' => [
+                                'value' => 'Leave a feedback',
+                                'type' => 'text'
+                            ],
+                        ]
+                        ],
+                    [
+                        'name' => 'content',
+                        'data' => [
+                            'title' => [
+                                'value' => 'Contact us',
+                                'type' => 'text'
+                            ],
+                            'title' => [
+                                'value' => 'Title',
+                                'type' => 'text'
+                            ],
+                            'email' => [
+                                'value' => 'Email Address',
+                                'type' => 'text'
+                            ],
+                            'content' => [
+                                'value' => 'Content',
+                                'type' => 'text'
+                            ],
+                            'attachments' => [
+                                'value' => 'Attachments',
+                                'type' => 'text'
+                            ],
+                            'image' => [
+                                'value' => 'Image',
+                                'type' => 'text'
+                            ],
+                            'file' => [
+                                'value' => 'File',
+                                'type' => 'text'
+                            ],
+                            'send' => [
+                                'value' => 'Send',
                                 'type' => 'text'
                             ],
                         ]
@@ -312,13 +384,21 @@ class PageSeeder extends Seeder
                                 'value' => 'Confirm New Password',
                                 'type' => 'text'
                             ],
+                            'save' => [
+                                'value' => 'Save Changes',
+                                'type' => 'text'
+                            ],
                         ]
                     ],
                     [
-                        'name' => 'account-details',
+                        'name' => 'subscriptions',
                         'data' => [
                             'title' => [
                                 'value' => 'Subscriptions',
+                                'type' => 'text'
+                            ],
+                            'canceled' => [
+                                'value' => 'Canceled',
                                 'type' => 'text'
                             ],
                             'cancel' => [
@@ -341,10 +421,22 @@ class PageSeeder extends Seeder
                                 'value' => 'Active',
                                 'type' => 'text'
                             ],
+                            'active-canceled' => [
+                                'value' => 'Active (canceled)',
+                                'type' => 'text'
+                            ],
+                            'empty' => [
+                                'value' => 'No subscription found',
+                                'type' => 'text'
+                            ],
+                            'empty-button' => [
+                                'value' => 'Sign Up for Plan',
+                                'type' => 'text'
+                            ],
                         ]
                     ],
                     [
-                        'name' => 'account-details',
+                        'name' => 'payment-methods',
                         'data' => [
                             'title' => [
                                 'value' => 'Payment Methods',
@@ -370,6 +462,38 @@ class PageSeeder extends Seeder
                                 'value' => 'Delete',
                                 'type' => 'text'
                             ],
+                            'add-button' => [
+                                'value' => '+ Add Payment Method',
+                                'type' => 'text'
+                            ],
+                            'add-title' => [
+                                'value' => '+ Add Payment Method',
+                                'type' => 'text'
+                            ],
+                            'card-number' => [
+                                'value' => 'Card Number',
+                                'type' => 'text'
+                            ],
+                            'card-expiration' => [
+                                'value' => 'Expiration Date',
+                                'type' => 'text'
+                            ],
+                            'card-ccv' => [
+                                'value' => 'CVV Code',
+                                'type' => 'text'
+                            ],
+                            'add-cancel' => [
+                                'value' => 'Cancel',
+                                'type' => 'text'
+                            ],
+                            'add-save' => [
+                                'value' => 'Save Card',
+                                'type' => 'text'
+                            ],
+                            'empty' => [
+                                'value' => 'No saved method found',
+                                'type' => 'text'
+                            ],
                         ]
                     ]
                 ]
@@ -382,7 +506,7 @@ class PageSeeder extends Seeder
                 ],
                 'blocks' => [
                     [
-                        'name' => 'content',
+                        'name' => 'top',
                         'data' => [
                             'title' => [
                                 'value' => 'We are here to help',

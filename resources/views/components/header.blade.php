@@ -2,51 +2,33 @@
     <div class="container header__container">
         <div class="header__body">
             <a href="{{route('index')}}" class="header__logo logo">
-                <img src="{{asset('img/logo.svg')}}" alt="LOGO">
+                <img src="{{$headerBlock->show('logo')}}" alt="LOGO">
             </a>
             <nav class="header__menu menu">
                 <ul class="menu__list">
-                    <li>
-                        <a href="{{route('subscription-plans.index')}}">
-                            Pricing
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/about-us">
-                            About Us
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/how-it-works">
-                            How It Works
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('faq')}}">
-                            FAQ
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('feedbacks.index')}}">
-                            Contact Us
-                        </a>
-                    </li>
+                    @foreach ($headerMenu as $item)
+                        <li>
+                            <a href="{{url($item->link)}}">
+                                {{$item->title}}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </nav>
             <div class="buttons-group">
                 @auth
                     <a href="{{route('profile.index')}}" class="btn btn-sm btn-white">
-                        Account
+                        {{$headerBlock->show('account')}}
                     </a>
                     <form action="{{route('logout')}}" method="post" id="logout-form">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-blue">
-                            Logout
+                            {{$headerBlock->show('logout')}}
                         </button>
                     </form>
                 @else
                     <a href="{{route('login')}}" class="btn btn-sm btn-white">
-                        Log In
+                        {{$headerBlock->show('login')}}
                     </a>
                 @endauth
             </div>

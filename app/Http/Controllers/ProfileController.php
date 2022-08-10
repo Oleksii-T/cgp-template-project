@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Page;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return view('profile.index');
+        $page = Page::get('profile');
+        return view('profile.index', compact('page'));
     }
     public function update(ProfileRequest $request)
     {
