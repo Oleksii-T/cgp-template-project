@@ -30,7 +30,11 @@ class Menu extends Model
     {
         return DataTables::of($query)
             ->addColumn('action', function ($model) {
-                return view('admin.menus.actions-list', compact('model'))->render();
+                return view('components.admin.actions', [
+                    'model' => $model,
+                    'name' => 'menus',
+                    'actions' => ['edit']
+                ])->render();
             })
             ->rawColumns(['action'])
             ->make(true);

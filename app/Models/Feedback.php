@@ -34,7 +34,11 @@ class Feedback extends Model
                 return $model->created_at->format(env('ADMIN_DATETIME_FORMAT'));
             })
             ->addColumn('action', function ($model) {
-                return view('admin.feedbacks.actions-list', compact('model'))->render();
+                return view('components.admin.actions', [
+                    'model' => $model,
+                    'name' => 'feedbacks',
+                    'actions' => ['show', 'destroy']
+                ])->render();
             })
             ->rawColumns(['user', 'action'])
             ->make(true);

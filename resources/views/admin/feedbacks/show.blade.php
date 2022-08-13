@@ -40,7 +40,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Text</label>
-                        <textarea class="form-control">{{$feedback->text}}</textarea>
+                        <p class="form-control" style="white-space: pre-line">{{$feedback->text}}</p>
                     </div>
                 </div>
                 <div class="col-md-6">

@@ -36,13 +36,6 @@ return [
             'throw' => false,
         ],
 
-        'blogs' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/blogs'),
-            'url' => env('APP_URL').'/storage/blogs',
-            'visibility' => 'public',
-        ],
-
         'pages' => [
             'driver' => 'local',
             'root' => storage_path('app/public/pages'),

@@ -4,7 +4,7 @@
 
 @section('content_header')
     <x-admin.title
-        text="Subscriptionss"
+        text="Subscriptions"
         bcRoute="admin.subscriptions.index"
     />
 @stop

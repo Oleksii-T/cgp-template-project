@@ -47,7 +47,10 @@ class SubscriptionPlan extends Model
                 return $model->trial ? ($model->trial . ' days') : 'none';
             })
             ->addColumn('action', function ($model) {
-                return view('admin.subscription-plans.actions-list', compact('model'))->render();
+                return view('components.admin.actions', [
+                    'model' => $model,
+                    'name' => 'subscription-plans'
+                ])->render();
             })
             ->rawColumns(['action'])
             ->make(true);

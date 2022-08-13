@@ -72,7 +72,11 @@ class Subscription extends Model
                 return $model->created_at->format(env('ADMIN_DATETIME_FORMAT'));
             })
             ->addColumn('action', function ($model) {
-                return view('admin.subscriptions.actions-list', compact('model'))->render();
+                return view('components.admin.actions', [
+                    'model' => $model,
+                    'name' => 'subscriptions',
+                    'actions' => ['show', 'destroy']
+                ])->render();
             })
             ->rawColumns(['user', 'plan', 'status', 'action'])
             ->make(true);

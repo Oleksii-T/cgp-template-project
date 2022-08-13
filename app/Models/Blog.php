@@ -86,6 +86,8 @@ class Blog extends Model implements LocalizedUrlRoutable
 
     /** helpers **/
 
+    /** static helpers **/
+
     public static function dataTable($query)
     {
         return DataTables::of($query)
@@ -98,13 +100,14 @@ class Blog extends Model implements LocalizedUrlRoutable
                 return $model->created_at->format(env('ADMIN_DATETIME_FORMAT'));
             })
             ->addColumn('action', function ($model) {
-                return view('admin.blogs.actions-list', compact('model'))->render();
+                return view('components.admin.actions', [
+                    'model' => $model,
+                    'name' => 'blogs'
+                ])->render();
             })
             ->rawColumns(['action'])
             ->make(true);
     }
-
-    /** static helpers **/
 
     /** private helpers **/
 }
