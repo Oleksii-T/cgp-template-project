@@ -11,3 +11,6 @@
 .mb-10 {
     margin-bottom: 10px;
 }
+/* .tab-content > .tab-pane:not(.active) {
+    display: none;
+} */

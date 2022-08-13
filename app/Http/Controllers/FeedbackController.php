@@ -27,8 +27,6 @@ class FeedbackController extends Controller
         $user = auth()->user();
         $data['user_id'] = $user->id??null;
         $feedback = Feedback::create($data);
-        $feedback->addAttachment($request->file, 'file');
-        $feedback->addAttachment($request->image, 'image');
 
         if (Setting::get('email_feedback')) {
             Mail::to(Setting::get('email_feedback_to'))->send(new FeedbackMail($feedback));

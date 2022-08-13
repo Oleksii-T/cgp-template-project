@@ -50,33 +50,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Image</label>
-                        @if ($feedback->image)
-                            <a class="form-control" href="{{route('admin.attachments.download', $feedback->image)}}">
-                                {{$feedback->image->original_name}}
-                            </a>
-                            <img src="{{$feedback->image->url}}" style="max-width: 150px" alt="">
-                        @else
-                            <p class="form-control">-</p>
-                        @endif
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>File</label>
-                        @if ($feedback->file)
-                            <a class="form-control" href="{{route('admin.attachments.download', $feedback->file)}}">
-                                {{$feedback->file->original_name}}
-                            </a>
-                        @else
-                            <p class="form-control">-</p>
-                        @endif
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <a href="{{ route('admin.feedbacks.index') }}" class="btn btn-outline-secondary text-dark min-w-100">Cancel</a>

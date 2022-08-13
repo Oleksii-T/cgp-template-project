@@ -288,18 +288,6 @@ class PageSeeder extends Seeder
                                 'value' => 'Content',
                                 'type' => 'text'
                             ],
-                            'attachments' => [
-                                'value' => 'Attachments',
-                                'type' => 'text'
-                            ],
-                            'image' => [
-                                'value' => 'Image',
-                                'type' => 'text'
-                            ],
-                            'file' => [
-                                'value' => 'File',
-                                'type' => 'text'
-                            ],
                             'send' => [
                                 'value' => 'Send',
                                 'type' => 'text'
@@ -492,28 +480,6 @@ class PageSeeder extends Seeder
                             ],
                             'empty' => [
                                 'value' => 'No saved method found',
-                                'type' => 'text'
-                            ],
-                        ]
-                    ]
-                ]
-            ],
-            [
-                'page' => [
-                    'status' => 'static',
-                    'title' => 'Faq',
-                    'link' => 'faq',
-                ],
-                'blocks' => [
-                    [
-                        'name' => 'top',
-                        'data' => [
-                            'title' => [
-                                'value' => 'We are here to help',
-                                'type' => 'text'
-                            ],
-                            'text' => [
-                                'value' => 'Browse through our most frequently asked questions',
                                 'type' => 'text'
                             ],
                         ]

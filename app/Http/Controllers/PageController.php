@@ -14,13 +14,6 @@ class PageController extends Controller
         return view('index', compact('page'));
     }
 
-    public function faq()
-    {
-        $page = Page::get('faq');
-
-        return view('faq', compact('page'));
-    }
-
     public function page(Request $request, $url)
     {
         // static pages are routed manualy via router

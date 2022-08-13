@@ -28,13 +28,13 @@ $(document).ready(function () {
     })
 
     // show uploaded file name
-    $('.show-uploaded-file-name input').change(function () {
+    $(document).on('change', '.show-uploaded-file-name input', function (e) {
         let name = $(this).val().split('\\').pop();
         $(this).closest('.show-uploaded-file-name').find('.custom-file-label').text(name);
     })
 
     // show uploaded file preview
-    $('.show-uploaded-file-preview input').change(function () {
+    $(document).on('change', '.show-uploaded-file-preview input', function (e) {
         const [file] = this.files;
         if (file) {
             let el = $(this).closest('.show-uploaded-file-preview').find('.custom-file-preview');
@@ -117,9 +117,12 @@ function deleteResource(dataTable, url) {
 
 // general error logic, after ajax form submit been processed
 function showServerError(response) {
-    // TODO display errors from array inputs
     if (response.status == 422) {
-        for (const [field, value] of Object.entries(response.responseJSON.errors)) {
+        for ([field, value] of Object.entries(response.responseJSON.errors)) {
+            let dotI = field.indexOf('.');
+            if (dotI != -1) {
+                field = field.slice(0, dotI);
+            }
             let errorText = '';
             let errorElement = $(`.input-error[data-input=${field}]`);
             errorElement = errorElement.length ? errorElement : $(`.input-error[data-input="${field}[]"]`);
@@ -139,7 +142,7 @@ function showServerError(response) {
 function showServerSuccess(response) {
     if (response.success) {
         swal.fire("Success!", response.message, 'success').then((result) => {
-            if (response.data.redirect) {
+            if (response.data?.redirect) {
                 window.location.href = response.data.redirect;
             }
         });

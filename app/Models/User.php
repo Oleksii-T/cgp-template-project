@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Yajra\DataTables\DataTables;
 use App\Casts\File;
-use Attribute;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at'
     ];
 
-    public $disk = 'user';
+    public $disk = 'users';
 
     protected $hidden = [
         'password',
@@ -35,6 +35,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'avatar' => File::class
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($model) {
+            $disk = Storage::disk($model->disk);
+            $disk->delete($model->getRawOriginal('avatar'));
+        });
+    }
 
     public function isAdmin()
     {

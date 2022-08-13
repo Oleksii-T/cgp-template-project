@@ -36,6 +36,13 @@ return [
             'throw' => false,
         ],
 
+        'blogs' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/blogs'),
+            'url' => env('APP_URL').'/storage/blogs',
+            'visibility' => 'public',
+        ],
+
         'pages' => [
             'driver' => 'local',
             'root' => storage_path('app/public/pages'),
@@ -71,10 +78,10 @@ return [
             'visibility' => 'public',
         ],
 
-        'user' => [
+        'users' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/user'),
-            'url' => env('APP_URL').'/storage/user',
+            'root' => storage_path('app/public/users'),
+            'url' => env('APP_URL').'/storage/users',
             'visibility' => 'public',
         ],
 

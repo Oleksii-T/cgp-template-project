@@ -5,28 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Yajra\DataTables\DataTables;
-use App\Traits\HasAttachment;
 
 class Feedback extends Model
 {
-    use HasAttachment;
-
     protected $fillable = [
         'user_id',
         'email',
         'title',
         'text'
     ];
-
-    public function file()
-    {
-        return $this->morphOne(Attachment::class, 'attachmentable')->where('group', 'file');
-    }
-
-    public function image()
-    {
-        return $this->morphOne(Attachment::class, 'attachmentable')->where('group', 'image');
-    }
 
     public function user()
     {

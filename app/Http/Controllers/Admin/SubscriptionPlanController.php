@@ -38,10 +38,10 @@ class SubscriptionPlanController extends Controller
     public function store(SubscriptionPlanRequest $request)
     {
         try {
-            $data = $request->validated();
-            $stripePlan = $this->stripeService->createPlan($data['title'], $data['price'], $data['interval'], 1, $data['trial']);
-            $data['stripe_id'] = $stripePlan['id'];
-            $subscriptionPlan = SubscriptionPlan::create($data);
+            $input = $request->validated();
+            $stripePlan = $this->stripeService->createPlan($input['title'], $input['price'], $input['interval'], 1, $input['trial']);
+            $input['stripe_id'] = $stripePlan['id'];
+            $subscriptionPlan = SubscriptionPlan::create($input);
         } catch (\Throwable $th) {
             if (isset($subscriptionPlan)) {
                 $subscriptionPlan->delete();
@@ -62,9 +62,9 @@ class SubscriptionPlanController extends Controller
 
     public function update(SubscriptionPlanRequest $request, SubscriptionPlan $subscriptionPlan)
     {
-        $data = $request->validated();
-        $stripePlan = $this->stripeService->updatePlan($subscriptionPlan->stripe_id, $data['title'], $data['trial']);
-        $subscriptionPlan->update($data);
+        $input = $request->validated();
+        $stripePlan = $this->stripeService->updatePlan($subscriptionPlan->stripe_id, $input['title'], $input['trial']);
+        $subscriptionPlan->update($input);
 
         return $this->jsonSuccess('Subscription plan updated successfully.');
     }

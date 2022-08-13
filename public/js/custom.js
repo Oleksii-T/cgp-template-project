@@ -86,11 +86,14 @@ const Toast = Swal.mixin({
 
 // general error logic, after ajax form submit been processed
 function showServerError(response) {
-    // TODO display errors from array inputs
     console.log('response', response);
     if (response.status == 422) {
         let r = response.responseJSON ?? JSON.parse(response.responseText)
-        for (const [field, value] of Object.entries(r.errors)) {
+        for ([field, value] of Object.entries(r.errors)) {
+            let dotI = field.indexOf('.');
+            if (dotI != -1) {
+                field = field.slice(0, dotI);
+            }
             let errorText = '';
             let errorElement = $(`.input-error[data-input=${field}]`);
             errorElement = errorElement.length ? errorElement : $(`.input-error[data-input="${field}[]"]`);

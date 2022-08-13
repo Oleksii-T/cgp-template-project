@@ -28,18 +28,18 @@ class MenuController extends Controller
     public function store(MenuRequest $request)
     {
         $menu = Menu::findByCode($request->code);
-        $data = $request->except('_token');
+        $input = $request->except('_token');
 
-        $data['link'] = $data['link'] ?? Str::slug($data['title']);
+        $input['link'] = $input['link'] ?? Str::slug($input['title']);
 
-        if (!isset($data['item_id'])) {
-            $data['sort'] = MenuItem::getLastSort($menu->id);
-            $data['menu_id'] = $menu->id;
+        if (!isset($input['item_id'])) {
+            $input['sort'] = MenuItem::getLastSort($menu->id);
+            $input['menu_id'] = $menu->id;
 
-            $menuItem = MenuItem::create($data);
+            $menuItem = MenuItem::create($input);
         } else {
-            $menuItem = MenuItem::find($data['item_id']);
-            $menuItem->update($data);
+            $menuItem = MenuItem::find($input['item_id']);
+            $menuItem->update($input);
         }
 
         return response()->json([

@@ -261,6 +261,11 @@ return [
             'icon' => 'fas fa-fw fa-paper-plane',
         ],
         [
+            'text' => 'Blogs',
+            'route'  => 'admin.blogs.index',
+            'icon' => 'fas fa-fw fa-paragraph',
+        ],
+        [
             'text' => 'Settings',
             'route'  => 'admin.settings.index',
             'icon' => 'fas fa-fw fa-cogs',

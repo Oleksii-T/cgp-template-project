@@ -34,10 +34,10 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
-        $user = User::create($data);
-        $user->roles()->attach($data['roles']);
+        $input = $request->validated();
+        $input['password'] = Hash::make($input['password']);
+        $user = User::create($input);
+        $user->roles()->attach($input['roles']);
 
         return $this->jsonSuccess('User created successfully', [
             'redirect' => route('admin.users.index')
@@ -51,16 +51,16 @@ class UserController extends Controller
 
     public function update(UserRequest $request, User $user)
     {
-        $data = $request->validated();
+        $input = $request->validated();
 
-        if ($data['password']) {
-            $data['password'] = Hash::make($data['password']);
+        if ($input['password']) {
+            $input['password'] = Hash::make($input['password']);
         } else {
-            unset($data['password']);
+            unset($input['password']);
         }
 
-        $user->update($data);
-        $user->roles()->sync($data['roles']);
+        $user->update($input);
+        $user->roles()->sync($input['roles']);
 
         return $this->jsonSuccess('User updated successfully');
     }

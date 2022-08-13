@@ -16,4 +16,11 @@ class AttachmentController extends Controller
 
         return Storage::disk($disk)->download($attachment->name);
     }
+
+    public function destroy(Request $request, Attachment $attachment)
+    {
+        $attachment->delete();
+
+        return $this->jsonSuccess('Blog updated successfully');
+    }
 }

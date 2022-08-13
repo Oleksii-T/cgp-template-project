@@ -8,6 +8,8 @@ use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\BlogController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
  *
@@ -17,15 +19,14 @@ use App\Http\Controllers\StripeController;
 
 Route::prefix('tmp')->group(function () {
     Route::get('test', function () {
-        $feedback = \App\Models\Feedback::find(17);
-        return new \App\Mail\FeedbackMail($feedback);
+
+        dd('done');
     });
 });
 
 // Guest
 Route::get('/', [PageController::class, 'index'])->name('index');
-Route::get('blog', [PageController::class, 'blog'])->name('blog');
-Route::get('faq', [PageController::class, 'faq'])->name('faq');
+
 Route::get('auth/social/{provider}', [SocialAuthController::class, 'redirect'])->name('auth.social');
 Route::get('auth/callback/{provider}', [SocialAuthController::class, 'callback']);
 
@@ -65,8 +66,15 @@ Route::middleware('auth:web')->group(function () {
         Route::prefix('stripe')->group(function () {
             Route::post('setup-intent', [StripeController::class, 'setupIntent']);
         });
+
+        Route::middleware(['localeSessionRedirect', 'localizationRedirect'])->prefix(LaravelLocalization::setLocale())->group(function () {
+            Route::resource('blogs', Blog::class)->only('index', 'show');
+        });
     });
 
+    Route::middleware(['localeSessionRedirect', 'localizationRedirect'])->prefix(LaravelLocalization::setLocale())->group(function () {
+        Route::resource('blog', BlogController::class)->only('index', 'show');
+    });
 });
 
 Route::get('{url}', [PageController::class, 'page'])->name('page');

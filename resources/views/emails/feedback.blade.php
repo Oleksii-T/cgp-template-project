@@ -16,17 +16,6 @@ Email:
 {{$feedback->email}}
 @endcomponent
 
-Image:
-@component('mail::panel')
-{{$feedback->image->original_name ?? 'none'}}
-@endcomponent
-
-File:
-@component('mail::panel')
-{{$feedback->file->original_name ?? 'none'}}
-@endcomponent
-
-
 @component('mail::button', ['url' => $url])
 View in admin
 @endcomponent

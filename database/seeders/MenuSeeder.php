@@ -35,8 +35,8 @@ class MenuSeeder extends Seeder
                         'link' => 'how-it-works'
                     ],
                     [
-                        'title' => 'FAQ',
-                        'link' => 'faq'
+                        'title' => 'Blog',
+                        'link' => 'blog'
                     ],
                     [
                         'title' => 'Contact Us',
@@ -59,8 +59,8 @@ class MenuSeeder extends Seeder
                         'link' => 'subscription-plans'
                     ],
                     [
-                        'title' => 'FAQ',
-                        'link' => 'faq'
+                        'title' => 'Blog',
+                        'link' => 'blog'
                     ],
                 ]
             ],

@@ -54,29 +54,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h3>{{$page->show('content:attachments')}}</h3>
-                                                <div class="form-content">
-                                                    <div class="input-group-row">
-                                                        <div class="input-group-col-2">
-                                                            <div class="input-group">
-                                                                <label class="input-group__title">
-                                                                    {{$page->show('content:image')}}
-                                                                </label>
-                                                                <input type="file" class="input" name="image">
-                                                                <span data-input="image" class="input-error"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-group-col-2">
-                                                            <div class="input-group">
-                                                                <label class="input-group__title">
-                                                                    {{$page->show('content:file')}}
-                                                                </label>
-                                                                <input type="file" class="input" name="file">
-                                                                <span data-input="file" class="input-error"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

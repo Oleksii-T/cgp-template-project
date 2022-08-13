@@ -96,3 +96,15 @@ Breadcrumbs::for('admin.feedbacks.show', function ($trail, $model) {
     $trail->parent('admin.feedbacks.index');
     $trail->push('Feedback # ' . $model->id, route('admin.feedbacks.show', $model));
 });
+
+// Menus
+Breadcrumbs::for('admin.blogs.index', function ($trail) {
+    $trail->push('Blogs', route('admin.blogs.index'));
+});
+Breadcrumbs::for('admin.blogs.create', function ($trail) {
+    $trail->push('Create Blog', route('admin.blogs.create'));
+});
+Breadcrumbs::for('admin.blogs.edit', function ($trail, $model) {
+    $trail->parent('admin.blogs.index');
+    $trail->push('Edit Blog # ' . $model->id, route('admin.blogs.edit', $model));
+});

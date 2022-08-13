@@ -27,8 +27,8 @@ class PageController extends Controller
 
     public function store(PageRequest $request)
     {
-        $data = $request->validated();
-        Page::create($data);
+        $input = $request->validated();
+        Page::create($input);
 
         return $this->jsonSuccess('Page created successfully', [
             'redirect' => route('admin.pages.index')
@@ -42,8 +42,8 @@ class PageController extends Controller
 
     public function update(PageRequest $request, Page $page)
     {
-        $data = $request->validated();
-        $page->update($data);
+        $input = $request->validated();
+        $page->update($input);
 
         return $this->jsonSuccess('Page updated successfully');
     }
