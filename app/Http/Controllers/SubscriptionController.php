@@ -52,31 +52,6 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function paymentMethod(Request $request)
-    {
-        $stripeService = new StripeService();
-        $user = auth()->user();
-        $intent_id = $request->intent_id;
-
-        $defaultMethodExist = $user->getDefaultPaymentMethod();
-        if (!$defaultMethodExist || $request->use_as_default) {
-            $stripeService->setCustomerDefaultMethod($user->stripe_id, $request->paymentMethod['id']);
-            $user->paymentMethods()->update([
-                'is_default' => false
-            ]);
-        }
-        $user->paymentMethods()->create([
-            'is_default' => !$defaultMethodExist ? 1 : $request->use_as_default ?? 0,
-            'token' => $request->paymentMethod['id'],
-            'data' => $request->paymentMethod,
-        ]);
-
-        $stripeService->createCustomer($user);
-        $stripeService->attachMethodToCustomer($user->stripe_id, $request->paymentMethod['id']);
-
-        return $this->jsonSuccess('Payments method added successfully', null);
-    }
-
     public function cancel(Request $request)
     {
         $stripeService = new StripeService();

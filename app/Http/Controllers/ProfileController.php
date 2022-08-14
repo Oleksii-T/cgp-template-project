@@ -12,7 +12,10 @@ class ProfileController extends Controller
     public function index()
     {
         $page = Page::get('profile');
-        return view('profile.index', compact('page'));
+        $user = auth()->user();
+        $paymentMethods = $user->paymentMethods()->latest()->get();
+
+        return view('profile.index', compact('page', 'paymentMethods'));
     }
     public function update(ProfileRequest $request)
     {

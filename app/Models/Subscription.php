@@ -45,6 +45,11 @@ class Subscription extends Model
         $this->update(['status' => 'canceled']);
     }
 
+    public function isCanceled()
+    {
+        return $this->status == 'canceled';
+    }
+
     public function isActive()
     {
         return (bool)$this->cycle;

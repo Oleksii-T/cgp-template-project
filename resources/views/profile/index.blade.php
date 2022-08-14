@@ -142,8 +142,8 @@
                                         @foreach ($currentUser->subscriptions()->latest()->get() as $subscription)
                                             <div class="list-subscription {{$subscription->isActive() ? 'active' : ''}}">
                                                 @if ($subscription->isActive())
-                                                    <span class="active-subscription-label">{{$subscription->canceled ? $page->show('subscriptions:active-canceled') : $page->show('subscriptions:active')}}</span>
-                                                @elseif ($subscription->canceled)
+                                                    <span class="active-subscription-label">{{$subscription->isCanceled() ? $page->show('subscriptions:active-canceled') : $page->show('subscriptions:active')}}</span>
+                                                @elseif ($subscription->isCanceled())
                                                     <span class="active-subscription-label">{{$page->show('subscriptions:canceled')}}</span>
                                                 @endif
                                                 <div class="subscription-item">
@@ -158,12 +158,13 @@
                                                     <span>{{$page->show('subscriptions:end')}}</span>
                                                     <span>{{$subscription->cycle->expire_at->format('F d, Y')}}</span>
                                                 </div>
-                                                @if ($subscription->isActive())
+                                                @if ($subscription->isActive() && !$subscription->isCanceled())
                                                     <div class="subscription-item">
                                                         <div class="actions">
-                                                            @if(!$subscription->plan->free_plan && !$subscription->canceled)
-                                                                <a href="#" class="btn btn-white btn-sm cancel-subscription" data-subscription="{{$subscription->id}}">{{$page->show('subscriptions:cancel')}}</a>
-                                                            @endif
+                                                            <form action="{{route('subscriptions.cancel', $subscription)}}" method="post" class="general-ajax-submit">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-white btn-sm ask">{{$page->show('subscriptions:cancel')}}</button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 @endif
@@ -188,7 +189,7 @@
                                         <a href="#" class="btn btn-sm btn-white open-add-payments">{{$page->show('payment-methods:add-button')}}</a>
                                     </div>
                                     <div class="tab-info">
-                                        @if ($currentUser->paymentMethods->isNotEmpty())
+                                        @if ($paymentMethods->isNotEmpty())
                                             <table>
                                                 <thead>
                                                 <tr>
@@ -198,7 +199,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($currentUser->paymentMethods as $method)
+                                                    @foreach ($paymentMethods as $method)
                                                         <tr>
                                                             <th class="methods">
                                                                 <div class="card">
@@ -210,8 +211,19 @@
                                                             <th class="expires">{{$method->data['card']['exp_month'] . '/' . $method->data['card']['exp_year']}}</th>
                                                             <th class="actions">
                                                                 <div class="action-links">
-                                                                    <a href="#" data-method="{{$method->id}}" class="btn btn-xs btn-white set-default-method {{$currentUser->getDefaultPaymentMethod()->id==$method->id ? 'disable' : ''}}">{{$page->show('payment-methods:set-default')}}</a>
-                                                                    <a href="#" data-method="{{$method->id}}" class="btn btn-xs btn-white delete-method">{{$page->show('payment-methods:delete')}}</a>
+                                                                    @if ($currentUser->getDefaultPaymentMethod()->id==$method->id)
+                                                                        <a type="submit" class="btn btn-xs btn-white disable">{{$page->show('payment-methods:is-default')}}</a>
+                                                                    @else
+                                                                        <form action="{{route('payment-methods.set-default', $method)}}" method="post" class="general-ajax-submit inline">
+                                                                            @csrf
+                                                                            <button type="submit" class="btn btn-xs btn-white">{{$page->show('payment-methods:set-default')}}</button>
+                                                                        </form>
+                                                                    @endif
+                                                                    <form action="{{route('payment-methods.destroy', $method)}}" method="post" class="general-ajax-submit inline">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-xs btn-white ask">{{$page->show('payment-methods:delete')}}</button>
+                                                                    </form>
                                                                 </div>
                                                             </th>
                                                         </tr>
@@ -223,7 +235,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <form class="payment-methods-block2 hidden-payment">
+                                <form class="payment-methods-block2 hidden-payment add-payment-method">
                                     <div class="heading-tab">
                                         <h3>{{$page->show('payment-methods:add-title')}}</h3>
                                     </div>
@@ -232,7 +244,7 @@
                                             <div id="credit-card" class="tab-content2 current">
                                                 <div class="input-group">
                                                     <label class="input-group__title">{{$page->show('payment-methods:card-number')}}</label>
-                                                    <input type="text" class="input" placeholder="•••• •••• •••• 1234">
+                                                    <div class="input" id="cardNumber"></div>
                                                 </div>
                                                 <div class="input-group-row">
                                                     <div class="input-group-col-2">
@@ -240,7 +252,7 @@
                                                             <label class="input-group__title">
                                                                 {{$page->show('payment-methods:card-expiration')}}
                                                             </label>
-                                                            <input type="text" class="input" placeholder="12 / 24">
+                                                            <div class="input" id="cardExp"></div>
                                                         </div>
                                                     </div>
                                                     <div class="input-group-col-2">
@@ -248,7 +260,7 @@
                                                             <label class="input-group__title">
                                                                 {{$page->show('payment-methods:card-ccv')}}
                                                             </label>
-                                                            <input type="password" class="input" placeholder="•••">
+                                                            <div class="input" id="cardCVC"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -270,3 +282,11 @@
         <x-footer />
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        var STRIPE_PUB_KEY = "{{\App\Models\Setting::get('stripe_public_key')}}";
+    </script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ asset('js/payments.js') }}"></script>
+@endpush

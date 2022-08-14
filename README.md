@@ -43,7 +43,7 @@ JS функционал уникальный для каждого раздел�
 *app/Models/Subscription.php* - план подписки с ценой, 
 *app/Models/SubscriptionPlan.php* - подписка пользователя на конкретный план, 
 *app/Models/SubscriptionCycle.php* - циклы подписки.
-Имеется возможность выбрать trial period для плана. Оплата реализована через следующие файлы: *public/js/payments.js*, *app/Services/StripeService.php*. Для отслеживания циклов подписки реализована команда *app/Console/Commands/CheckSubscription.php*.
+Имеется возможность выбрать trial period для плана. Оплата реализована через следующие файлы: *public/js/payments.js*, *app/Services/StripeService.php*. Для отслеживания циклов подписки реализована команда *app/Console/Commands/CheckSubscription.php*. Имеется функционал методов оплаты - добавление\удаление\выбор по умолчанию.
 
 ### Локализация
 Используемые пакеты: [laravel-localization](https://github.com/mcamara/laravel-localization).
@@ -66,13 +66,28 @@ JS функционал уникальный для каждого раздел�
 Полезные функции помощники.
 - *public/adminer.php*.
 Визуализация базы в браузере.
-- *public/js/custom.js*
+- *public/js/custom.js*.
 Копия *public/js/admin/custom.js* описанного в [Админ панель](#админ-панель), но для клиентской части - содержит общий функционал JS используемый в разных местах клиентской части.
+- *routes/dev.php*.
+Полезные рауты для стадии разработки.
+
+### To do:
+- Subscribe via saved card
+- Refactor *app/Services/StripeService.php*
+- Simple translate, using JSON column
+- Redesign admin input file fields
+- Switch front design to simple bootstrap
+- Refactor admin menus section
+- Single payment
+- Add comments
 
 ## Installation
 Download project
 ```bash
 git clone https://[YOUR-TOKEN]github.com/Oleksii-T/laravel-template-project.git
+```
+Go to project`s folder
+```bash
 cd laravel-template-project.git
 ```
 Install dependencies
@@ -103,4 +118,6 @@ Run migrations and seeders
 ```bash
 php artisan migrate --seed
 ```
+To test subscription related functionalities, stripe and plans must be configured manually.
+
 You are ready to go!

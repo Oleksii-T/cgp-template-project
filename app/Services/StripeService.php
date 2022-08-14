@@ -126,19 +126,9 @@ class StripeService
      * @return bool
      * @throws \Stripe\Exception\ApiErrorException
      */
-    public function updateDefaultPaymentMethod(User $user, $paymentMethodId, $save)
+    public function updateDefaultPaymentMethod($customerId, $paymentMethodId)
     {
-        if (!$user->stripe_id) {
-            $user = $this->createCustomer($user);
-        }
-
-        if ($save) {
-            $user->update([
-                'stripe_default_payment_id' => $paymentMethodId
-            ]);
-        }
-
-        $this->stripe->customers->update($user->stripe_id, [
+        $this->stripe->customers->update($customerId, [
             'invoice_settings' => [
                 'default_payment_method' => $paymentMethodId
             ]
@@ -262,17 +252,6 @@ class StripeService
 		return $this->stripe->paymentMethods->attach(
             $payment_method,
             ['customer' => $customerId]
-        );
-	}
-
-	public function setCustomerDefaultMethod($customerId, $payment_method){
-		return $this->stripe->customers->update(
-            $customerId,
-            [
-                'invoice_settings' => [
-                    'default_payment_method' => $payment_method
-                ]
-            ]
         );
 	}
 }

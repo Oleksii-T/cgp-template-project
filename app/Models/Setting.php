@@ -41,6 +41,7 @@ class Setting extends Model
             'name' => 'Stripe settings',
             'settings' => [
                 'stripe_secret_key' => 'Secret key',
+                'stripe_public_key' => 'Public key',
                 'stripe_product' => 'Product id',
                 'currency' => 'Currency',
                 'currency_sign' => 'Currency sign',

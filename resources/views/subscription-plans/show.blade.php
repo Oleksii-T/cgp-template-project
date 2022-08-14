@@ -38,6 +38,9 @@
 @endsection
 
 @push('scripts')
+    <script>
+        var STRIPE_PUB_KEY = "{{\App\Models\Setting::get('stripe_public_key')}}";
+    </script>
     <script src="https://js.stripe.com/v3/"></script>
     <script src="{{ asset('js/payments.js') }}"></script>
 @endpush

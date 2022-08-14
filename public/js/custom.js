@@ -11,9 +11,29 @@ $(document).ready(function () {
         if (button.hasClass('cursor-wait')) {
             return;
         }
-        button.addClass('cursor-wait');
-        $('.input-error').empty();
 
+        if (button.hasClass('ask')) {
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    ajaxSubmit(form, formData, button);
+                }
+            });
+            return;
+        }
+
+        ajaxSubmit(form, formData, button);
+    })
+
+    function ajaxSubmit(form, formData, button) {
+        $('.input-error').empty();
+        button.addClass('cursor-wait');
         $.ajax({
             url: form.attr('action'),
             type: form.attr('method'),
@@ -30,7 +50,7 @@ $(document).ready(function () {
                 showServerError(response);
             }
         });
-    })
+    }
 
     // show uploaded file name
     $('.show-uploaded-file-name input').change(function () {
@@ -86,7 +106,6 @@ const Toast = Swal.mixin({
 
 // general error logic, after ajax form submit been processed
 function showServerError(response) {
-    console.log('response', response);
     if (response.status == 422) {
         let r = response.responseJSON ?? JSON.parse(response.responseText)
         for ([field, value] of Object.entries(r.errors)) {
@@ -127,7 +146,7 @@ function showServerSuccess(response) {
 }
 
 //show loading unclosable popup
-function showLoading(text='Request processing...') {
+function loading(text='Request processing...') {
     swal.fire({
         title: 'Wait!',
         text: text,

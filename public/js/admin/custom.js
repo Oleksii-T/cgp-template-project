@@ -5,7 +5,7 @@ $(document).ready(function () {
     // general logic of ajax form submit (supports files)
     $('form.general-ajax-submit').submit(function(e){
         e.preventDefault();
-        showLoading();
+        loading();
         let form = $(this);
         let formData = new FormData(this);
         $('.input-error').empty();
@@ -152,7 +152,7 @@ function showServerSuccess(response) {
 }
 
 //show loading unclosable popup
-function showLoading(text='Request processing...') {
+function loading(text='Request processing...') {
     swal.fire({
         title: 'Wait!',
         text: text,

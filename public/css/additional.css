@@ -54,3 +54,6 @@
 .feature-items img {
     width: 50px;
 }
+.inline {
+    display: inline-block;
+}

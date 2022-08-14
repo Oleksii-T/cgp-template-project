@@ -443,7 +443,11 @@ class PageSeeder extends Seeder
                                 'type' => 'text'
                             ],
                             'set-default' => [
-                                'value' => 'Default Card',
+                                'value' => 'Set as Default',
+                                'type' => 'text'
+                            ],
+                            'is-default' => [
+                                'value' => 'Default',
                                 'type' => 'text'
                             ],
                             'delete' => [

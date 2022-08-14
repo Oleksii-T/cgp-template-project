@@ -8,6 +8,7 @@ use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\BlogController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -17,18 +18,20 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
  *
  */
 
-Route::prefix('tmp')->group(function () {
-    Route::get('test', function () {
-
-        dd('done');
-    });
-});
-
 // Guest
 Route::get('/', [PageController::class, 'index'])->name('index');
 
 Route::get('auth/social/{provider}', [SocialAuthController::class, 'redirect'])->name('auth.social');
 Route::get('auth/callback/{provider}', [SocialAuthController::class, 'callback']);
+
+// Subscription Plans
+Route::prefix('subscription-plans')->name('subscription-plans.')->group(function () {
+    Route::get('/', [SubscriptionPlanController::class, 'index'])->name('index');
+});
+
+// Feedbacks
+Route::get('contact-us', [FeedbackController::class, 'index'])->name('feedbacks.index');
+Route::post('feedbacks', [FeedbackController::class, 'store'])->name('feedbacks.store');
 
 // Logged in
 Route::middleware('auth:web')->group(function () {
@@ -44,22 +47,24 @@ Route::middleware('auth:web')->group(function () {
         Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 
-        // Feedbacks
-        Route::get('contact-us', [FeedbackController::class, 'index'])->name('feedbacks.index');
-        Route::post('feedbacks', [FeedbackController::class, 'store'])->name('feedbacks.store');
-
         // Subscription Plans
         Route::prefix('subscription-plans')->name('subscription-plans.')->group(function () {
-            Route::get('/', [SubscriptionPlanController::class, 'index'])->name('index');
             Route::get('{subscriptionPlan}/show', [SubscriptionPlanController::class, 'show'])->name('show');
             Route::post('{subscriptionPlan}/subscribe', [SubscriptionPlanController::class, 'subscribe'])->name('subscribe');
         });
 
         // Subscriptions
         Route::prefix('subscriptions')->name('subscriptions.')->group(function () {
-            Route::post('cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
+            Route::post('{subscription}/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
             Route::post('', [SubscriptionController::class, 'store'])->name('store');
             Route::post('payment-method', [SubscriptionController::class, 'paymentMethod'])->name('payment-method');
+        });
+
+        // Payment Methods
+        Route::prefix('payment-methods')->name('payment-methods.')->group(function () {
+            Route::post('', [PaymentMethodController::class, 'store'])->name('store');
+            Route::delete('{paymentMethod}', [PaymentMethodController::class, 'destroy'])->name('destroy');
+            Route::post('{paymentMethod}', [PaymentMethodController::class, 'setDefault'])->name('set-default');
         });
 
         // Subscription Stripe
