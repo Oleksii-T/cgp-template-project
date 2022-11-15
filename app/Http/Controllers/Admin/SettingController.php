@@ -22,6 +22,6 @@ class SettingController extends Controller
             Setting::set($key, $value);
         }
 
-        return $this->jsonSuccess(null, 'Settings udpated successfully');
+        return $this->jsonSuccess('Settings udpated successfully');
     }
 }

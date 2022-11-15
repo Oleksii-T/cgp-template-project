@@ -307,6 +307,16 @@ return [
     */
 
     'plugins' => [
+        'jQuery' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//code.jquery.com/ui/1.13.1/jquery-ui.js',
+                ],
+            ],
+        ],
         'Datatables' => [
             'active' => true,
             'files' => [

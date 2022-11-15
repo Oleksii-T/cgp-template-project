@@ -5,7 +5,7 @@ $(document).ready(function () {
         ajax: {
 			url: window.location.href,
 			data: function (filter) {
-				filter.role = $('.table-filter[name=role]').val();
+                addTableFilters(filter);
 			}
 		},
         columns: [

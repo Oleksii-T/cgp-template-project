@@ -30,7 +30,7 @@ class BlogController extends Controller
         $input = $request->validated();
         $blog = Blog::create($input);
         $blog->saveTranslations($input);
-        $blog->addAttachment($input['thumbnail']??[], 'thumbnail');
+        $blog->addAttachment($input['thumbnail']??null, 'thumbnail');
         $blog->addAttachment($input['images']??[], 'images');
 
         return $this->jsonSuccess('Blog created successfully', [

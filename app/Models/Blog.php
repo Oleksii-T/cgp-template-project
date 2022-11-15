@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Yajra\DataTables\DataTables;
 use App\Traits\HasTranslations;
 use App\Traits\HasAttachments;
-use App\Casts\File;
 
 class Blog extends Model implements LocalizedUrlRoutable
 {
@@ -60,6 +59,8 @@ class Blog extends Model implements LocalizedUrlRoutable
     {
         return $this->morphMany(Attachment::class, 'attachmentable')->where('group', 'images');
     }
+
+    /** scopes **/
 
     /** casts **/
 
