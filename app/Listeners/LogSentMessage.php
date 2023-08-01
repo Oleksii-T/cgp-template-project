@@ -43,4 +43,13 @@ class LogSentMessage
             \Log::channel('emails')->info('Error when logging: ' . $th->getMessage());
         }
     }
+
+    // log for older versions of laravel
+    private function log($text, $data=[])
+    {
+        $pre = 'mail';
+        $logger = new \Monolog\Logger($pre);
+        $logger->pushHandler(new \Monolog\Handler\StreamHandler(storage_path("logs/emails.log")), $pre);
+        $logger->info($text, $data);
+    }
 }
