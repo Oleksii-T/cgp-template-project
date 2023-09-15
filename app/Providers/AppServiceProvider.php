@@ -7,6 +7,8 @@ use App\Models\Setting;
 use App\Models\Menu;
 use App\Models\Page;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
     {
         \View::composer('*', function($view) {
             $cashTime = 5;
+            $user = auth()->user();
 
             $view->with(
                 'currentUser',
@@ -82,6 +85,49 @@ class AppServiceProvider extends ServiceProvider
                 Cache::remember('footerBlock', $cashTime, function() {
                     return Page::get('/')->blocks()->where('name', 'footer')->first();
                 })
+            );
+
+            $data = [
+                'csrf' => csrf_token(),
+                'route_name' => \Route::currentRouteName(),
+                'translations' => [],
+                // some more public data to use in JS
+            ];
+            if ($user) {
+                $data['user'] = [
+                    'name' => $user->name,
+                    'email' => $user->email
+                ];
+            }
+            $view->with('LaravelDataForJS', $data);
+        });
+
+        \Blade::directive('svg', function($arguments) {
+            // Funky madness to accept multiple arguments into the directive
+            list($path, $class) = array_pad(explode(',', trim($arguments, "() ")), 2, '');
+            $path = trim($path, "' ");
+            $class = trim($class, "' ");
+
+            // Create the dom document as per the other answers
+            $svg = new \DOMDocument();
+            $svg->load(public_path($path));
+            $svg->documentElement->setAttribute("class", $class);
+            $output = $svg->saveXML($svg->documentElement);
+
+            return $output;
+        });
+
+        Collection::macro('paginate', function($perPage, $page = null, $pageName = 'page') {
+            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
+            return new LengthAwarePaginator(
+                $this->forPage($page, $perPage), // $items
+                $this->count(),                  // $total
+                $perPage,
+                $page,
+                [                                // $options
+                    'path' => LengthAwarePaginator::resolveCurrentPath(),
+                    'pageName' => $pageName,
+                ]
             );
         });
 

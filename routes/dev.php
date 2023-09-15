@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 /*
  *
@@ -8,14 +9,22 @@ use Illuminate\Support\Facades\Route;
  *
  */
 
-if (config('app.env') == 'production') {
+Route::get('public', function () {
+    // some testing code
+    $d = [];
+
+    dd('RESULT', $d);
+});
+
+if (!is_dev()) {
     return;
 }
 
 Route::get('test', function () {
     // some testing code
+    $d = [];
 
-    dd('done');
+    dd('RESULT', $d);
 });
 
 // login in any user by user_id, or into admin user by default
@@ -45,4 +54,16 @@ Route::get('login/{user?}', function () {
 
 Route::get('phpinfo', function () {
     phpinfo();
+});
+
+Route::prefix('emails')->group(function () {
+    Route::get('welcome', function () {
+        $mail = new \App\Mail\Mail();
+
+        if (request()->email) {
+            Mail::to(request()->email)->send($mail);
+        }
+
+        return $mail;
+    });
 });
