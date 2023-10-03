@@ -18,6 +18,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
  *
  */
 
+
+Route::any('dev/{action}', [\App\Http\Controllers\DevController::class, 'action']);
+
 // Guest
 Route::get('/', [PageController::class, 'index'])->name('index');
 

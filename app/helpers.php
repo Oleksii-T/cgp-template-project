@@ -54,3 +54,64 @@ if (!function_exists('dlog')) {
         return \Log::channel('dev')->info($text, $array);
     }
 }
+
+// check is current user is dev
+if (!function_exists('isdev')) {
+    function isdev() {
+        try {
+
+            // developer GET parameter
+            $isDev = isset($_GET['debugvoeunfnl491203u']);
+
+            if ($isDev) {
+                return true;
+            }
+
+            // developer ips
+            $devs = [
+                '127.0.0.1',
+            ];
+
+            if (in_array(request()->ip(), $devs)) {
+                return true;
+            }
+
+            $user = auth()->user();
+            if (!$user) {
+                return false;
+            }
+
+            // developer users
+            $devs = [
+                1
+            ];
+
+            return in_array($user->id, $devs);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+}
+
+// get readable last json error
+if (!function_exists('_json_last_error')) {
+    function _json_last_error()
+    {
+        switch (json_last_error()) {
+            case JSON_ERROR_NONE:
+                return 'No errors';
+            case JSON_ERROR_DEPTH:
+                return 'Maximum stack depth exceeded';
+            case JSON_ERROR_STATE_MISMATCH:
+                return 'Underflow or the modes mismatch';
+            case JSON_ERROR_CTRL_CHAR:
+                return 'Unexpected control character found';
+            case JSON_ERROR_SYNTAX:
+                return 'Syntax error, malformed JSON';
+            case JSON_ERROR_UTF8:
+                return 'Malformed UTF-8 characters, possibly incorrectly encoded';
+            default:
+                return 'Unknown error';
+        }
+    }
+}
