@@ -11,12 +11,14 @@ use App\Models\User;
  * To track execution time use $this-t()
  * To dump values use $this->d
  * Set up _authorize() to you needs
+ * See example() as an example of usage
  *
  */
 class DevController extends Controller
 {
     private $d = [];
     private $timings = [];
+    private $queryLog = false;
     private $user;
     private $fullStart;
     private $start;
@@ -27,6 +29,7 @@ class DevController extends Controller
         $this->fullStart = $this->start = microtime(true);
     }
 
+    // base method to navigate and manage testing logic
     public function action($slug)
     {
         if (!method_exists($this, $slug)) {
@@ -38,6 +41,11 @@ class DevController extends Controller
         }
 
         $result = $this->{$slug}();
+
+        // dump query log if is set
+        if ($this->queryLog) {
+            dump('QUERY LOG', \DB::getQueryLog());
+        }
 
         // dump $timings only if we set some
         if ($this->timings) {
@@ -53,25 +61,24 @@ class DevController extends Controller
         return $result;
     }
 
-    // dummy public method.
-    // can be used to showcase some functionality to external user.
-    private function public()
+    private function test()
     {
-        return "Hello from devs!";
+        //
     }
 
     // dummy method
-    private function test()
+    private function example()
     {
-        $this->d[] = 'creating 1000 els array and collection...';
+        $this->enableQueryLog();
+
+        $this->d('creating 1000 els array and collection...');
 
         $array = range(-500, 500);
         shuffle($array);
 
         $colleciton = collect($array);
 
-        $this->d[] = 'starting sorting...';
-
+        $this->d('starting sorting...');
         $this->setFullStart();
 
         sort($array);
@@ -81,10 +88,16 @@ class DevController extends Controller
         $colleciton->sort();
 
         $this->t('collection_sort');
-
-        $this->d[] = 'sorting done.';
+        $this->d('sorting done.');
 
         return $array;
+    }
+
+    // dummy public method.
+    // can be used to showcase some functionality to external user.
+    private function public()
+    {
+        return "Hello from devs!";
     }
 
     // test emails
@@ -165,6 +178,15 @@ class DevController extends Controller
         $this->start = microtime(true);
     }
 
+    private function d($value, $key=null)
+    {
+        if ($key) {
+            $this->d[$key] = $value;
+        } else {
+            $this->d[] = $value;
+        }
+    }
+
     // reset start time
     private function setFullStart($key=null)
     {
@@ -177,5 +199,12 @@ class DevController extends Controller
         $ok = true || isdev() || $this->user?->isAdmin();
 
         abort_if(!$ok, 403);
+    }
+
+    // enable query log
+    private function enableQueryLog()
+    {
+        $this->queryLog = true;
+        \DB::connection()->enableQueryLog();
     }
 }
